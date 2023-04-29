@@ -2,7 +2,19 @@
 
 import React from "react";
 import "./App.css";
+import {Outlet} from "react-router-dom";
 
+
+const Layout = () => {
+  return (
+    <>
+      <Outlet />
+    </>
+  );
+};
+
+export default Layout;
+/*
 function App() {
   const [data, setData] = React.useState(null);
   const [data2, setData2] = React.useState(null);
@@ -28,3 +40,4 @@ function App() {
 }
 
 export default App;
+*/
