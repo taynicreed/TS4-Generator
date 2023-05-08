@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import HomePage from './pages/HomePage';
 import InstructionsPage from './pages/InstructionsPage';
 import OptionsPage from './pages/OptionsPage';
+import NamePage from './pages/NamePage';
 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="options" element={<OptionsPage />} />
           <Route path="/instructions" element={<InstructionsPage />} />
+          <Route path="/name" element={<NamePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

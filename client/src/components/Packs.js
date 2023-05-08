@@ -51,9 +51,6 @@ export default class MyComponent extends React.Component {
         { id: "sp13", label: "Tiny Living Stuff", checked: true },
         { id: "sp14", label: "Nifty Knitting Stuff", checked: true },
         { id: "sp15", label: "Paranormal Stuff", checked: true }
-
-
-
     ],
       kits: [
         { id: "k1", label: "\nBust the Dust Kit", checked: true },

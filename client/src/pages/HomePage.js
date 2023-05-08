@@ -11,6 +11,19 @@ function SaveFile() {
 }
 
 function HomePage() {
+    
+  /*const [data, setData] = React.useState(null);
+  const [data2, setData2] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch("/api1/api")
+      .then((res) => res.json())
+      .then((data) => setData(data.message));
+    fetch("/api2/api")
+      .then((res) => res.json())
+      .then((data2) => setData2(data2.message));
+  }, []);*/
+  
 
   return (
     <div className="App">
@@ -45,7 +58,10 @@ function HomePage() {
       
       <div className="btns">
         <button type="button" class="btn btn-light" onClick={SaveFile}>Save</button>
-      </div>
+        <Link to="/name">
+        <button type="button" class="btn btn-light">Name Generator</button>
+        </Link>      
+        </div>
 
     </div>
 

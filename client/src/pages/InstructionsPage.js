@@ -1,7 +1,9 @@
 import {Link} from "react-router-dom";
 
+
 function InstructionsPage() {
-  return (
+
+    return (
     <div className="App">
       <div>
         <header className="App-header">
