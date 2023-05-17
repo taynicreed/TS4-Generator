@@ -1,23 +1,25 @@
-SET FOREIGN_KEY_CHECKS = 0;
-SET AUTOCOMMIT = 0;
-
 -- -----------------------------------------------------
 -- Creating Tables
 -- -----------------------------------------------------
 -- Drop existing tables
-DROP TABLE MiscByPacks;
+DROP TABLE PrevRules;
+DROP TABLE Rules;
 DROP TABLE Misc;
+DROP TABLE Family;
 DROP TABLE Skills;
 DROP TABLE Aspirations;
 DROP TABLE Careers;
 DROP TABLE Traits;
 DROP TABLE Packs;
+DROP TABLE Rules;
+DROP TABLE PrevRules;
 
 -- Create Packs table
 CREATE TABLE Packs (
     packID varchar(6) NOT NULL,
     packName varchar(50) NOT NULL,
     packType varchar(50) NULL,
+    selected TINYINT(1) DEFAULT 1,
     PRIMARY KEY (packID)
 );
 
@@ -25,8 +27,9 @@ CREATE TABLE Packs (
 CREATE TABLE Aspirations (
     aspID int(11) NOT NULL AUTO_INCREMENT,
     aspName varchar(50) NOT NULL,
-    aspType varchar(50) NOT NULL,
-    packID varchar (6),
+    aspType varchar(50) NULL,
+    packID varchar (6) DEFAULT 'bg',
+    used TINYINT(1) DEFAULT 0, 
     FOREIGN KEY (packID) REFERENCES Packs(packID),
     PRIMARY KEY (aspID)
 
@@ -38,6 +41,7 @@ CREATE TABLE Careers (
     careerName varchar(50) NOT NULL,
     careerType varchar(50) NULL,
     packID varchar(6) NOT NULL,
+    used TINYINT(1) DEFAULT 0, 
     FOREIGN KEY (packID) REFERENCES Packs(packID),
     PRIMARY KEY (careerID)
 );
@@ -46,8 +50,9 @@ CREATE TABLE Careers (
 CREATE TABLE Traits (
     traitID int(11) NOT NULL AUTO_INCREMENT,
     traitName varchar(50) NOT NULL,
-    traitType varchar(50) NOT NULL,
+    traitType varchar(50) NULL,
     packID varchar(6) NOT NULL,
+    used TINYINT(1) DEFAULT 0,
     FOREIGN KEY (packID) REFERENCES Packs(packID),
     PRIMARY KEY (traitID)
 );
@@ -57,27 +62,66 @@ CREATE TABLE Skills (
     skillID int(11) NOT NULL AUTO_INCREMENT,
     skillName varchar(50) NOT NULL,
     packID varchar(6) NOT NULL,
+    used TINYINT(1) DEFAULT 0,
     FOREIGN KEY (packID) REFERENCES Packs(packID),
     PRIMARY KEY (skillID)
+);
+
+-- Create Family table
+CREATE TABLE Family (
+    familyID int(11) NOT NULL AUTO_INCREMENT,
+    familyDescription varchar(100) NOT NULL,
+    packID varchar(6) DEFAULT 'bg',
+    used TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (packID) REFERENCES Packs(packID),
+    PRIMARY KEY (familyID)
 );
 
 -- Create Misc table
 CREATE TABLE Misc (
     miscID int(11) NOT NULL AUTO_INCREMENT,
     miscDescription varchar(100) NOT NULL,
+    packID varchar(6) DEFAULT 'bg',
+    used TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (packID) REFERENCES Packs(packID),
     PRIMARY KEY (miscID)
 );
 
--- Create Misc By Packs table
-CREATE TABLE MiscByPacks (
-  MiscByPacksID int(11) NOT NULL AUTO_INCREMENT,
-  packID varchar(6) NOT NULL,
-  miscID int(11),
-  PRIMARY KEY (MiscByPacksID),
-  FOREIGN KEY (packID) REFERENCES Packs(packID),
-  FOREIGN KEY (miscID) REFERENCES Misc(miscID)
+CREATE TABLE Rules (
+    genID int(2) NOT NULL,
+    familyID int(11),
+    aspID int(11),
+    careerID int(11),
+    traitID int(11),
+    skillID int(11),
+    miscID int(11),
+    FOREIGN KEY (familyID) REFERENCES Family(familyID),
+    FOREIGN KEY (aspID) REFERENCES Aspirations(aspID),
+    FOREIGN KEY (careerID) REFERENCES Careers(careerID),
+    FOREIGN KEY (traitID) REFERENCES Traits(traitID),
+    FOREIGN KEY (skillID) REFERENCES Skills(skillID),
+    FOREIGN KEY (miscID) REFERENCES Misc(miscID),
+    PRIMARY KEY (genID)
 );
 
+CREATE TABLE PrevRules (
+    prevID int(2) NOT NULL,
+    genID int(2) NOT NULL,
+    familyID int(11),
+    aspID int(11),
+    careerID int(11),
+    traitID int(11),
+    skillID int(11),
+    miscID int(11),
+    FOREIGN KEY (familyID) REFERENCES Family(familyID),
+    FOREIGN KEY (aspID) REFERENCES Aspirations(aspID),
+    FOREIGN KEY (careerID) REFERENCES Careers(careerID),
+    FOREIGN KEY (traitID) REFERENCES Traits(traitID),
+    FOREIGN KEY (skillID) REFERENCES Skills(skillID),
+    FOREIGN KEY (miscID) REFERENCES Misc(miscID),
+    FOREIGN KEY (genID) REFERENCES Rules(genID),
+    PRIMARY KEY (prevID)
+);
 
 -- -----------------------------------------------------
 -- Insert Data
@@ -129,7 +173,11 @@ INSERT INTO Packs (packID, packName, packType)
         ('k1', 'Bust the Dust Kit', 'Kit'),
         ('k2', 'Little Campers Kit', 'Kit');
 
+-- Insert Aspirations
+INSERT INTO Aspirations (aspName, packID)
+    VALUES ('Sample Aspiration', 'bg');
 
+-- Insert Careers 
 INSERT INTO Careers (careerName, packId)
     VALUES ('Astronaut', 'bg'),
         ('Athlete', 'bg'),
@@ -161,15 +209,32 @@ INSERT INTO Careers (careerName, packId)
         ('Law', 'ep8'),
         ('Freelancer (Crafter)', 'ep9'),
         ('Civil Designer', 'ep10'),
-
         ('Military', 'gp7');
 
--- PT Jobs
---        ('Diver', 'ep7'),
---        ('Fisherman', 'ep7'),
---        ('Lifeguard', 'ep7'),
 
+-- Insert Traits 
+INSERT INTO Traits (traitName, packID)
+    VALUES ('sample trait', 'bg');
 
+-- Insert Skills
+INSERT INTO Skills (skillName, packID)
+    VALUES ('sample skill', 'bg');
 
-SET FOREIGN_KEY_CHECKS = 1;
-COMMIT;
+-- Insert Family
+INSERT INTO Family (familyDescription, packID)
+    VALUES ('Have just one child', 'bg'),
+        ('All children must be adopted', 'bg'),
+        ('Have two children with a large age gap', 'bg');
+
+-- Insert Misc
+INSERT INTO Misc (miscDescription, packID)
+    VALUES ('Must always have at least one dog', 'ep4');
+
+-- Insert Rules
+INSERT INTO Rules (genID)
+    Values (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
+
+-- Insert PrevRules
+INSERT INTO PrevRules (prevID, genID)
+    Values (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), 
+        (7, 7), (8, 8), (9, 9), (10, 10);

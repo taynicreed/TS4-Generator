@@ -39,11 +39,11 @@ function HomePage() {
 
       <div className="two-btn">
         <Link to="/options">
-        <button type="button" class="btn btn-light">Options</button>
+        <button type="button" className="btn btn-light">Options</button>
         </Link>
 
         <Link to="/instructions">
-        <button type="button" class="btn btn-light">Instructions</button>
+        <button type="button" className="btn btn-light">Instructions</button>
         </Link>
       </div>
 
@@ -57,9 +57,9 @@ function HomePage() {
       </div>
       
       <div className="btns">
-        <button type="button" class="btn btn-light" onClick={SaveFile}>Save</button>
+        <button type="button" className="btn btn-light" onClick={SaveFile}>Save</button>
         <Link to="/name">
-        <button type="button" class="btn btn-light">Name Generator</button>
+        <button type="button" className="btn btn-light">Name Generator</button>
         </Link>      
         </div>
 

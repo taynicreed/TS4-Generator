@@ -1,7 +1,20 @@
 // https://reactjssnippet.com/posts/how-to-check-all-checkbox-in-react-js/
 import React from "react";
 
+
 export default class MyComponent extends React.Component {
+  /*
+    const [gamePack, setGamePack] = useState({data: []});
+
+    async function getGamePack() {
+      const response = await fetch('api2/game_packs');
+      const result = await response.json();
+      setGamePack(data.gamePack);
+  }
+  getGamePack();
+
+*/
+  
   constructor(props) {
     super(props);
 
@@ -209,8 +222,8 @@ export default class MyComponent extends React.Component {
         </div>
         
         <br />
-        <button type="button" class="btn btn-light" onClick={() => this.selectAll()}>Select all</button>
-        <button type="button" class="btn btn-light" onClick={() => this.deselectAll()}>Deselect All</button>
+        <button type="button" className="btn btn-light" onClick={() => this.selectAll()}>Select all</button>
+        <button type="button" className="btn btn-light" onClick={() => this.deselectAll()}>Deselect All</button>
       </div>
     );
   }

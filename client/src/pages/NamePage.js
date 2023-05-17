@@ -32,14 +32,14 @@ const handleClick = async () => {
     <div>
       <h1>Name Generator</h1>
       <p>Click the button below to generate a random name for your sim.</p>
-      <button type="button" class="btn btn-light" onClick={handleClick}>Get Name</button>
+      <button type="button" className="btn btn-light" onClick={handleClick}>Get Name</button>
       {err && <h2>{err}</h2>}
 
         <h2>{data.name}</h2>
 
         <div >
         <Link to="/">
-          <button type="button" class="btn btn-light">Home</button>
+          <button type="button" className="btn btn-light">Home</button>
         </Link>
       </div>
      </div>

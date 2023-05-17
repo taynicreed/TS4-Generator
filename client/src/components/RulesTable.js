@@ -16,7 +16,6 @@ const popover1 = (
     </Popover>
   );
 
-
 const popover2 = (
     <Popover id="popover-basic">
       <Popover.Body>
@@ -24,6 +23,8 @@ const popover2 = (
       </Popover.Body>
     </Popover>
   );
+
+
   
 function RulesTable() {
     return (

@@ -1,16 +1,27 @@
 // server/index.js
 
-const express = require("express");
+var express = require('express');
+var app = express();
+PORT = 7777;
 
-const PORT = process.env.PORT || 7777;
+var db = require('../database/db_connection')
 
-const app = express();
+/* 
+  Routes
+*/
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
-  });
+app.post('/game_packs', function(req, res)
+    {
+        // Define our queries
+        query1 = 'SELECT packName FROM Packs WHERE packType="Game";'
+        
+        db.con.query(query1, function(err, results, fields){
+          let base = "<h1>Results:</h1>"
+          res.send(base + JSON.stringify(results));
+        });
+      })
   
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+  app.listen(PORT, function(){
+    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });
 

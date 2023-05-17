@@ -51,7 +51,7 @@ function InstructionsPage() {
 
       <div >
         <Link to="/">
-          <button type="button" class="btn btn-light">Home</button>
+          <button type="button" className="btn btn-light">Home</button>
         </Link>
       </div>
 

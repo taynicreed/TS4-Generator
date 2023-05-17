@@ -12,7 +12,7 @@ export default function GenerateWarning() {
 
   return (
     <>
-    <button type="button" class="btn btn-light" onClick={handleShow}>Generate Rules</button>
+    <button type="button" className="btn btn-light" onClick={handleShow}>Generate Rules</button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header >
           <Modal.Title>Warning</Modal.Title>

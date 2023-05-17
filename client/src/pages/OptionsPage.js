@@ -55,10 +55,10 @@ function OptionsPage() {
         <div>
           <div className="two-btn">
             <Link to="/">
-            <Button variant="primary" class="btn btn-light">Apply Changes</Button>
+            <Button variant="primary" className="btn btn-light">Apply Changes</Button>
             </Link>
             <Link to="/">
-            <Button variant="secondary" class="btn btn-light">Cancel</Button>
+            <Button variant="secondary" className="btn btn-light">Cancel</Button>
             </Link>
           </div>
         </div>
