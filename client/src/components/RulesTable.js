@@ -4,10 +4,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import {useState, useEffect} from 'react';
+import Axios from 'axios';
 
 //import { faArrowRotateLeft } from '@fortawesome/media-playback';
 //const rerollIcon = <FontAwesomeIcon icon={faArrowRotateLeft} />;
-
 const popover1 = (
     <Popover id="popover-basic">
       <Popover.Body>
@@ -27,7 +28,21 @@ const popover2 = (
 
   
 function RulesTable() {
-    return (
+
+  const [rules, setData] = useState([]);
+
+  // receive rules from get request
+  useEffect(() => {
+    Axios.get('/api2/rules').then((response) => {
+      console.log('hi')
+      console.log({ data: response.data })
+      //console.log(response.data)
+      setData(response.data);
+    });
+  }, []);
+
+      return (
+        <div>
         <table>
             <thead>
                 <tr>
@@ -40,23 +55,29 @@ function RulesTable() {
                     <th> Reroll  <OverlayTrigger trigger="click" placement="left" overlay={popover2}>
                         <Button variant="success">?</Button>
                         </OverlayTrigger>
-                    </th>                </tr>
+                    </th>                
+                </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td id="rules">2 kids<br></br>Get divorced as an elder<br></br>Complete the postcard collection</td>
-                    <td Link className="icon"><FontAwesomeIcon icon={faRotateLeft} /></td>
-                    <td Link className="icon"><FontAwesomeIcon icon={faShuffle} /></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td id="rules">All kids must be adopted<br></br>Complete the Animal Lover aspiration<br></br>Max the handiness and fitness skills</td>
-                    <td Link className="icon"><FontAwesomeIcon icon={faRotateLeft} /></td>
-                    <td Link className="icon"><FontAwesomeIcon icon={faShuffle} /></td>
-                </tr>
-            </tbody>
-        </table>
+
+      {Array.isArray(rules) && rules.map((val) => {
+        return (
+              <tr>
+                <td>{val.genID}</td>
+                <td>
+                  {val.familyID}
+                  Complete the {val.aspID} aspiration <br></br>
+                  Finish the {val.careerID} career <br></br>
+                  Have the {val.traitID} trait <br></br>
+                  Max the {val.skillID} skill <br></br>
+                  {val.miscID}
+                </td>
+                <td Link className="icon"><FontAwesomeIcon icon={faRotateLeft} /></td>
+                <td Link className="icon"><FontAwesomeIcon icon={faShuffle} /></td>
+              </tr>
+          );
+        })}
+         </table>
+      </div>
     );
 }
 

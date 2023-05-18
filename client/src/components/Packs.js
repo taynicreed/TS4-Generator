@@ -1,22 +1,12 @@
 // https://reactjssnippet.com/posts/how-to-check-all-checkbox-in-react-js/
 import React from "react";
-
+import {useState, useEffect} from 'react';
+import Axios from 'axios';
 
 export default class MyComponent extends React.Component {
-  /*
-    const [gamePack, setGamePack] = useState({data: []});
-
-    async function getGamePack() {
-      const response = await fetch('api2/game_packs');
-      const result = await response.json();
-      setGamePack(data.gamePack);
-  }
-  getGamePack();
-
-*/
-  
   constructor(props) {
     super(props);
+
 
     this.state = {
       expansionPacks: [

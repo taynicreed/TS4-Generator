@@ -87,6 +87,7 @@ CREATE TABLE Misc (
     PRIMARY KEY (miscID)
 );
 
+-- Create Rules table
 CREATE TABLE Rules (
     genID int(2) NOT NULL,
     familyID int(11),
@@ -104,6 +105,7 @@ CREATE TABLE Rules (
     PRIMARY KEY (genID)
 );
 
+-- Create PrevRules table
 CREATE TABLE PrevRules (
     prevID int(2) NOT NULL,
     genID int(2) NOT NULL,
