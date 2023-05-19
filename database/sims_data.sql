@@ -181,7 +181,9 @@ INSERT INTO Aspirations (aspName, packID)
 
 -- Insert Careers 
 INSERT INTO Careers (careerName, packId)
-    VALUES ('Astronaut', 'bg'),
+    VALUES 
+        -- basegame
+        ('Astronaut', 'bg'),
         ('Athlete', 'bg'),
         ('Business', 'bg'),
         ('Criminal', 'bg'),
@@ -195,6 +197,7 @@ INSERT INTO Careers (careerName, packId)
         ('Style Influencer', 'bg'),
         ('Tech Guru', 'bg'),
         ('Writer', 'bg'),
+        -- Expansion Packs
         ('Detective', 'ep1'),
         ('Doctor', 'ep1'),
         ('Scientist', 'ep1'),
@@ -210,27 +213,159 @@ INSERT INTO Careers (careerName, packId)
         ('Engineer', 'ep8'),
         ('Law', 'ep8'),
         ('Freelancer (Crafter)', 'ep9'),
-        ('Civil Designer', 'ep10'),
-        ('Military', 'gp7');
-
+        ('Civil Designer', 'ep9'),
+        ('Salaryperson', 'ep10'),
+        -- game packs
+        ('Military', 'gp7'),
+        ('Interior Decorator', 'gp10'),
+        -- stuff packs
+        ('Freelancer (Fashion Photographer)', 'gp12'),
+        ('Freelancer (Paranormal Investigator)', 'sp15');
 
 -- Insert Traits 
 INSERT INTO Traits (traitName, packID)
-    VALUES ('sample trait', 'bg');
+    VALUES
+    -- basegame traits
+    ('Active', 'bg'),
+    ('Cheerful', 'bg'),
+    ('Creative', 'bg'),
+    ('Genius', 'bg'),
+    ('Gloomy', 'bg'),
+    ('Goofball', 'bg'),
+    ('Hot-Headed', 'bg'),
+    ('Romantic', 'bg'),
+    ('Self-Assured', 'bg'),
+    ('Art Lover', 'bg'),
+    ('Bookworm', 'bg'),
+    ('Foodie', 'bg'),
+    ('Geek', 'bg'),
+    ('Music Lover', 'bg'),
+    ('Perfectionist', 'bg'),
+    ('Ambitious', 'bg'),
+    ('Childish', 'bg'),
+    ('Clumsy', 'bg'),
+    ('Erratic', 'bg'),
+    ('Glutton', 'bg'),
+    ('Kleptomaniac', 'bg'),
+    ('Lazy', 'bg'),
+    ('Loves Outdoors', 'bg'),
+    ('Materialistic', 'bg'),
+    ('Neat', 'bg'),
+    ('Slob', 'bg'),
+    ('Snob', 'bg'),
+    ('Vegetarian', 'bg'),
+    ('Bro', 'bg'),
+    ('Evil', 'bg'),
+    ('Family-Oriented', 'bg'),
+    ('Good', 'bg'),
+    ('Hates Children', 'bg'),
+    ('Jealous', 'bg'),
+    ('Loner', 'bg'),
+    ('Loyal', 'bg'),
+    ('Mean', 'bg'),
+    ('Noncommittal', 'bg'),
+    ('Outgoing', 'bg'),
+    -- expansion pack traits
+    ('Dance Machine', 'ep2'),
+    ('Insider', 'ep2'),
+    ('Cat Lover', 'ep4'),
+    ('Dog Lover', 'ep4'),
+    ('Self-Absorbed', 'ep6'),
+    ('Child of the Islands', 'ep7'),
+    ('Child of the Ocean', 'ep7'),
+    ('Maker', 'ep9'),
+    ('Freegan', 'ep9'),
+    ('Green Fiend', 'ep9'),
+    ('Recycle Disciple', 'ep9'),
+    ('Adventurous', 'ep10'),
+    ('Proper', 'ep10'),
+    ('Animal Enthusiast', 'ep11'),
+    ('Lactose Intolerant', 'ep11'),
+    ('Overachiever', 'ep12'),
+    ('Party Animal', 'ep12'),
+    ('Socially Awkward', 'ep12'),
+    -- game pack traits
+    ('Squeamish', 'gp1'),
+    ('High Maintenance', 'gp2'),
+    ('Paranoid', 'gp7');
 
 -- Insert Skills
 INSERT INTO Skills (skillName, packID)
-    VALUES ('sample skill', 'bg');
+    VALUES 
+    -- basegame
+    ('Charisma', 'bg'),
+    ('Comedy', 'bg'),
+    ('Cooking', 'bg'),
+    ('Fishing', 'bg'),
+    ('Fitness', 'bg'),
+    ('Gardening', 'bg'),
+    ('Gourmet Cooking', 'bg'),
+    ('Guitar', 'bg'),
+    ('Handiness', 'bg'),
+    ('Logic', 'bg'),
+    ('Mischief', 'bg'),
+    ('Mixology', 'bg'),
+    ('Painting', 'bg'),
+    ('Photography', 'bg'),
+    ('Piano', 'bg'),
+    ('Programming', 'bg'),
+    ('Rocket Science', 'bg'),
+    ('Video Gaming', 'bg'),
+    ('Violin', 'bg'),
+    ('Writing', 'bg'),
+    -- expansion packs
+    ('Baking', 'ep1'),
+    ('Dancing', 'ep2'),
+    ('DJ Mixing', 'ep2'),
+    ('Singing', 'ep3'),
+    ('Pet Training', 'ep4'),
+    ('Veterinarian', 'ep4'),
+    ('Flower Arranging', 'ep5'),
+    ('Acting', 'ep6'),
+    ('Media Production', 'ep6'),
+    ('Research & Debate', 'ep8'),
+    ('Robotics', 'ep8'),
+    ('Juice Fizzing', 'ep9'),
+    ('Fabrication', 'ep9'),
+    ('Rock Climbing', 'ep10'),
+    ('Skiing', 'ep10'),
+    ('Snowboarding', 'ep10'),
+    ('Cross-Stitch', 'ep11'),
+    ('Entrepreneur', 'ep12'),
+    -- game packs
+    ('Herbalism', 'gp1'),
+    ('Wellness', 'gp2'),
+    ('Pipe Organ', 'gp4'),
+    ('Vampire Lore', 'gp4'),
+    ('Parenting', 'gp5'),
+    ('Archaeology', 'gp6'),
+    ('Selvadoradian Culture', 'gp6'),
+    -- stuff packs
+    ('Bowling', 'sp7'),
+    ('Knitting', 'sp14'),
+    ('Medium', 'sp15');
+    
 
 -- Insert Family
 INSERT INTO Family (familyDescription, packID)
-    VALUES ('Have just one child', 'bg'),
+    VALUES 
+        -- basegame
+        ('Have just one child', 'bg'),
         ('All children must be adopted', 'bg'),
         ('Have two children with a large age gap', 'bg');
+        -- expansion packs
 
 -- Insert Misc
 INSERT INTO Misc (miscDescription, packID)
-    VALUES ('Must always have at least one dog', 'ep4');
+    VALUES 
+    -- basegame
+    -- expansion packs
+    ('Have a relationship with an alien sim', 'ep1'),
+    ('Visit Sixam', 'ep1'),
+    ('All children must be born in the hospital', 'ep1'),
+    ('Must have a dog', 'ep4'),
+    ('Must always have at least one pet', 'ep4');
+
 
 -- Insert Rules
 INSERT INTO Rules (genID)
