@@ -11,8 +11,6 @@ DROP TABLE Aspirations;
 DROP TABLE Careers;
 DROP TABLE Traits;
 DROP TABLE Packs;
-DROP TABLE Rules;
-DROP TABLE PrevRules;
 
 -- Create Packs table
 CREATE TABLE Packs (
@@ -157,21 +155,21 @@ INSERT INTO Packs (packID, packName, packType)
         ('gp10', 'Dream Home Decorator', 'Game'),
         ('gp11', 'My Wedding Stories', 'Game'),
         ('gp12', 'Werewolves', 'Game'),
-        ('sp1', 'Cool Kitchen Stuff', 'Game'),
-        ('sp2', 'Spooky Stuff', 'Game'),
-        ('sp3', 'Movie Hangout Stuff', 'Game'),
-        ('sp4', 'Romantic Garden Stuff', 'Game'),
-        ('sp5', 'Kids Room Stuff', 'Game'),
-        ('sp6', 'Vintage Glamour Stuff', 'Game'),
-        ('sp7', 'Bowling Night Stuff', 'Game'),
-        ('sp8', 'Fitness Stuff', 'Game'),
-        ('sp9', 'Toddler Stuff', 'Game'),
-        ('sp10', 'Laundry Day', 'Game'),
-        ('sp11', 'My First Pet Stuff', 'Game'),
-        ('sp12', 'Moschino Stuff', 'Game'),
-        ('sp13', 'Tiny Living Stuff', 'Game'),
-        ('sp14', 'Nifty Knitting Stuff', 'Game'),
-        ('sp15', 'Paranormal Stuff', 'Game'),
+        ('sp1', 'Cool Kitchen Stuff', 'Stuff'),
+        ('sp2', 'Spooky Stuff', 'Stuff'),
+        ('sp3', 'Movie Hangout Stuff', 'Stuff'),
+        ('sp4', 'Romantic Garden Stuff', 'Stuff'),
+        ('sp5', 'Kids Room Stuff', 'Stuff'),
+        ('sp6', 'Vintage Glamour Stuff', 'Stuff'),
+        ('sp7', 'Bowling Night Stuff', 'Stuff'),
+        ('sp8', 'Fitness Stuff', 'Stuff'),
+        ('sp9', 'Toddler Stuff', 'Stuff'),
+        ('sp10', 'Laundry Day', 'Stuff'),
+        ('sp11', 'My First Pet Stuff', 'Stuff'),
+        ('sp12', 'Moschino Stuff', 'Stuff'),
+        ('sp13', 'Tiny Living Stuff', 'Stuff'),
+        ('sp14', 'Nifty Knitting Stuff', 'Stuff'),
+        ('sp15', 'Paranormal Stuff', 'Stuff'),
         ('k1', 'Bust the Dust Kit', 'Kit'),
         ('k2', 'Little Campers Kit', 'Kit');
 
