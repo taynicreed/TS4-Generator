@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import Packs from '../components/Packs';
+import PackList from '../components/Packs';
 import Button from 'react-bootstrap/Button';
 
 function OptionsPage() {
@@ -18,12 +18,9 @@ function OptionsPage() {
             Select the packs you own to create customized rules
           </h3>
 
-          <Packs />
+          <PackList />
 
           <div className="packs">
-            <p>
-                List of all packs that have gameplay features, with checkboxes!!
-            </p>
           </div>
           <p>Don't see a pack on the list? Only packs with gameplay features are included.</p>
         </div>
