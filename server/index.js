@@ -24,7 +24,7 @@ app.get('/rules', (req, res) => {
   });
 });
 
-app.get('/rules', (req, res) => {
+app.get('/packs', (req, res) => {
   // Define our queries
   query1 = 'SELECT * FROM Packs;'
   
