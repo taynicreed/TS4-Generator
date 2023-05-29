@@ -100,25 +100,52 @@ export default function PackList() {
     };
 
     // Action of individual checkbox
-    const handleChange = (checkboxId) => {
-        const updateCheckbox = (checkbox) => {
-            if (checkbox.id === checkboxId) {
-                return {...checkbox, checked: !checkbox.checked};
-        }
-        return checkbox;
-    };
-
+    const handleChange = (checkboxID, packCategory) => {
+        console.log(checkboxID, packCategory);
+        switch (packCategory) {
+            case 'expansionPacks':
+                setExpansionPacks((prevState) =>
+                    prevState.map((checkbox) =>
+                        checkbox.id === checkboxID ? { ...checkbox, checked : !checkbox.checked } : checkbox
+                        )
+                    );
+                break;
+            case 'gamePacks':
+                setGamePacks((prevState) =>
+                    prevState.map((checkbox) =>
+                        checkbox.id === checkboxID ? { ...checkbox, checked : !checkbox.checked } : checkbox
+                        )
+                    );
+                break;
+            case 'stuffPacks':
+                setStuffPacks((prevState) =>
+                    prevState.map((checkbox) =>
+                        checkbox.id === checkboxID ? { ...checkbox, checked : !checkbox.checked } : checkbox
+                        )
+                    );
+                break;
+            case 'kits':
+                setKits((prevState) =>
+                    prevState.map((checkbox) =>
+                        checkbox.id === checkboxID ? { ...checkbox, checked : !checkbox.checked } : checkbox
+                        )
+                    );
+                break;
+            default:
+                break;
+            }
 };
+
     return (
       <div className="container">
         <div>
           <label><strong>Expansion Packs</strong><br/></label>
           {expansionPacks.map((checkbox) => (
-            <label key={checkbox.packID}>
+            <label key={checkbox.id}>
               <input
                 type="checkbox"
                 checked={checkbox.checked}
-                onChange={() => handleChange(checkbox.packID, 'expansionPacks')}
+                onChange={() => handleChange(checkbox.id, 'expansionPacks')}
               />
               {checkbox.packName}
             </label>
@@ -129,11 +156,11 @@ export default function PackList() {
         <div>
           <label><strong>Game Packs</strong><br/></label>
           {gamePacks.map((checkbox) => (
-            <label key={checkbox.packID}>
+            <label key={checkbox.id}>
               <input
                 type="checkbox"
                 checked={checkbox.checked}
-                onChange={() => handleChange(checkbox.packID, 'gamePacks')}
+                onChange={() => handleChange(checkbox.id, 'gamePacks')}
               />
               {checkbox.packName}
               <br />
@@ -144,11 +171,11 @@ export default function PackList() {
         <div>
           <label><strong>Stuff Packs</strong><br/></label>
           {stuffPacks.map((checkbox) => (
-            <label key={checkbox.packID}>
+            <label key={checkbox.id}>
               <input
                 type="checkbox"
                 checked={checkbox.checked}
-                onChange={() => handleChange(checkbox.packID, 'stuffPacks')}
+                onChange={() => handleChange(checkbox.id, 'stuffPacks')}
               />
               {checkbox.packName}
               <br />
@@ -159,11 +186,11 @@ export default function PackList() {
         <div>
           <label><strong>Kit Packs<br/></strong></label>
           {kits.map((checkbox) => (
-            <label key={checkbox.packID}>
+            <label key={checkbox.id}>
               <input
                 type="checkbox"
                 checked={checkbox.checked}
-                onChange={() => handleChange(checkbox.packID, 'kits')}
+                onChange={() => handleChange(checkbox.id, 'kits')}
               />
               {checkbox.packName}
               <br />
