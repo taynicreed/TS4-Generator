@@ -1,8 +1,10 @@
 // https://reactjssnippet.com/posts/how-to-check-all-checkbox-in-react-js/
 import React, {useState, useEffect} from "react";
 import Axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import {Link} from "react-router-dom";
 
-export default function PackList() {
+export default function PackList({ onPackSelection }) {
     const [expansionPacks, setExpansionPacks] = useState([]);
     const [gamePacks, setGamePacks] = useState([]); 
     const [stuffPacks, setStuffPacks] = useState([]);
@@ -11,44 +13,44 @@ export default function PackList() {
   // receive packs from get request
   useEffect(() => {
     Axios.get('/api2/packs').then((response) => {
-      const data = response.data;
-        
-      // filters packs by type before mapping
-      const expansionPacksData = data.filter(pack => pack.packType === 'Expansion');
-      const gamePacksData = data.filter(pack => pack.packType === 'Game');
-      const stuffPacksData = data.filter(pack => pack.packType === 'Stuff'); 
-      const kitsData = data.filter(pack => pack.packType === 'Kit');    
+        const data = response.data;
+
+        // filters packs by type before mapping
+        const expansionPacksData = data.filter(pack => pack.packType === 'Expansion');
+        const gamePacksData = data.filter(pack => pack.packType === 'Game');
+        const stuffPacksData = data.filter(pack => pack.packType === 'Stuff'); 
+        const kitsData = data.filter(pack => pack.packType === 'Kit');    
+    
+        // map packs to appropriate arrays
+        setExpansionPacks(expansionPacksData.map(pack => ({
+            id: pack.packID,
+            packName: pack.packName,
+            type: pack.packType,
+            checked: pack.selected
+        })));
   
-      // map packs to appropriate arrays
-      setExpansionPacks(expansionPacksData.map(pack => ({
-        id: pack.packID,
-        packName: pack.packName,
-        type: pack.packType,
-        checked: pack.selected
-      })));
-  
-      setGamePacks(gamePacksData.map(pack => ({
-        id: pack.packID,
-        packName: pack.packName,
-        type: pack.packType,
-        checked: pack.selected
-      })));
-  
-      setStuffPacks(stuffPacksData.map(pack => ({
-        id: pack.packID,
-        packName: pack.packName,
-        type: pack.packType,
-        checked: pack.selected
-      })));
-  
-      setKits(kitsData.map(pack => ({
-        id: pack.packID,
-        packName: pack.packName,
-        type: pack.packType,
-        checked: pack.selected
-      })));
+        setGamePacks(gamePacksData.map(pack => ({
+            id: pack.packID,
+            packName: pack.packName,
+            type: pack.packType,
+            checked: pack.selected
+        })));
+    
+        setStuffPacks(stuffPacksData.map(pack => ({
+            id: pack.packID,
+            packName: pack.packName,
+            type: pack.packType,
+            checked: pack.selected
+        })));
+    
+        setKits(kitsData.map(pack => ({
+            id: pack.packID,
+            packName: pack.packName,
+            type: pack.packType,
+            checked: pack.selected
+        })));
     });
-  }, []);
+}, []);
 
 
     // Action of select all button
@@ -101,33 +103,32 @@ export default function PackList() {
 
     // Action of individual checkbox
     const handleChange = (checkboxID, packCategory) => {
-        console.log(checkboxID, packCategory);
         switch (packCategory) {
             case 'expansionPacks':
                 setExpansionPacks((prevState) =>
                     prevState.map((checkbox) =>
-                        checkbox.id === checkboxID ? { ...checkbox, checked : !checkbox.checked } : checkbox
-                        )
+                        checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
+                    )
                     );
                 break;
             case 'gamePacks':
                 setGamePacks((prevState) =>
                     prevState.map((checkbox) =>
-                        checkbox.id === checkboxID ? { ...checkbox, checked : !checkbox.checked } : checkbox
+                        checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
                         )
                     );
                 break;
             case 'stuffPacks':
                 setStuffPacks((prevState) =>
                     prevState.map((checkbox) =>
-                        checkbox.id === checkboxID ? { ...checkbox, checked : !checkbox.checked } : checkbox
+                        checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
                         )
                     );
                 break;
             case 'kits':
                 setKits((prevState) =>
                     prevState.map((checkbox) =>
-                        checkbox.id === checkboxID ? { ...checkbox, checked : !checkbox.checked } : checkbox
+                        checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
                         )
                     );
                 break;
@@ -135,6 +136,22 @@ export default function PackList() {
                 break;
             }
 };
+    // Update database with new pack selections on submit
+    const handleSelectionSubmit = () => {
+        console.log('eps:', expansionPacks);
+        console.log('gps:', gamePacks);
+        console.log('sps:', stuffPacks);
+        console.log('kits:', kits);
+
+        const packsToUpdate = [...expansionPacks, ...gamePacks, ...stuffPacks, ...kits];
+        const updatedPacks = packsToUpdate.map((pack) => ({
+        packID: pack.id,
+        selected: pack.checked,
+        }));
+
+        // Call the onPackSelection prop with the updatedPacks
+        onPackSelection(updatedPacks);
+    };
 
     return (
       <div className="container">
@@ -200,8 +217,20 @@ export default function PackList() {
         </div>
   
         <br />
+        <div className="two-btn">
         <button type="button" className="btn btn-light" onClick={() => selectAll()}>Select all</button>
         <button type="button" className="btn btn-light" onClick={() => deselectAll()}>Deselect All</button>
+        </div>
+        <br />
+
+        <div className="two-btn">
+            <Button variant="secondary" className="btn btn-light" onClick={handleSelectionSubmit}>Apply</Button>
+        <Link to="/">
+            <Button variant="secondary" className="btn btn-light">Cancel</Button>
+        </Link>
+        </div>
+
       </div>
+
     );
   }

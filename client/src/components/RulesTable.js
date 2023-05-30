@@ -34,9 +34,7 @@ function RulesTable() {
   // receive rules from get request
   useEffect(() => {
     Axios.get('/api2/rules').then((response) => {
-      console.log('hi')
       console.log({ data: response.data })
-      //console.log(response.data)
       setData(response.data);
     });
   }, []);
