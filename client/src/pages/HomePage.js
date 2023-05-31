@@ -3,6 +3,7 @@ import RulesTable from '../components/RulesTable';
 import GenerateWarning from '../components/warning'
 import {Link} from "react-router-dom";
 import { saveAs } from 'file-saver';
+import Axios from 'axios';
 
 
 function SaveFile() {
@@ -11,18 +12,17 @@ function SaveFile() {
 }
 
 function HomePage() {
-    
-  /*const [data, setData] = React.useState(null);
-  const [data2, setData2] = React.useState(null);
 
-  React.useEffect(() => {
-    fetch("/api1/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-    fetch("/api2/api")
-      .then((res) => res.json())
-      .then((data2) => setData2(data2.message));
-  }, []);*/
+    // overwrite previous rules
+    const overwritePrevRules = (gensToUpdate) => {
+      Axios.put('/api2/overwritePrevRules', gensToUpdate)
+        .then(() => {
+          console.log("success");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
   
 
   return (
@@ -48,12 +48,15 @@ function HomePage() {
       </div>
 
       <div >
-      <GenerateWarning />
-        </div>
+      <GenerateWarning 
+        onOverwritePrevRules={overwritePrevRules}
+      />
+      </div>
 
       <div className="rules">
         <h2>Your Legacy Challenge</h2>
-        <RulesTable />
+        <RulesTable 
+        />
       </div>
       
       <div className="btns">

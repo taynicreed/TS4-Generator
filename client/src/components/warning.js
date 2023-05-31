@@ -5,24 +5,19 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Axios from 'axios';
 
-export default function GenerateWarning() {
+export default function GenerateWarning({onOverwritePrevRules}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [rules, setData] = useState([]);
 
-  // overwrite previous rules
-  const overwritePrevRules = () => {
-    handleClose();
-    Axios.put('/api2/overwritePrevRules')
-      .then(() => {
-        console.log("success");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    const handleGenerate = () => {
+        const gensToUpdate = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        // Call the onOverwritePrevRules prop with the gensToUpdate
+        onOverwritePrevRules(gensToUpdate);
+        handleClose();
+    };
+
 
   return (
     <>
@@ -33,7 +28,7 @@ export default function GenerateWarning() {
         </Modal.Header>
         <Modal.Body>This will overwrite previously generated rules.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={overwritePrevRules}>
+          <Button variant="primary" onClick={handleGenerate}>
             Okay
           </Button>
           <Button variant="secondary" onClick={handleClose}>

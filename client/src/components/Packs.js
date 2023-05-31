@@ -138,11 +138,6 @@ export default function PackList({ onPackSelection }) {
 };
     // Update database with new pack selections on submit
     const handleSelectionSubmit = () => {
-        console.log('eps:', expansionPacks);
-        console.log('gps:', gamePacks);
-        console.log('sps:', stuffPacks);
-        console.log('kits:', kits);
-
         const packsToUpdate = [...expansionPacks, ...gamePacks, ...stuffPacks, ...kits];
         const updatedPacks = packsToUpdate.map((pack) => ({
         packID: pack.id,

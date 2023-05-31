@@ -89,7 +89,7 @@ app.put('/packOptions', (req, res) => {
 
 // mark rules as unused
 app.put('/unusedRules', (req, res) => {
-  const rulesToUpdate = req.body;
+  
   //figure out how to map through rulesToUpdate and update each rule
   // Family
   // Aspirations
@@ -102,6 +102,9 @@ app.put('/unusedRules', (req, res) => {
 
 // overwrite PrevRules with Rules
 app.put('/overwritePrevRules', (req, res) => {
+  const gensToUpdate = req.body;
+  const genValues = gensToUpdate.join(',');
+
   const query = `UPDATE PrevRules 
     INNER JOIN Rules ON PrevRules.genID = Rules.genID
     SET
@@ -110,11 +113,17 @@ app.put('/overwritePrevRules', (req, res) => {
       PrevRules.careerID = Rules.careerID,
       PrevRules.traitID = Rules.traitID,
       PrevRules.skillID = Rules.skillID,
-      PrevRules.miscID = Rules.miscID;`;
+      PrevRules.miscID = Rules.miscID
+    WHERE PrevRules.genID IN (${genValues});`;
   
   db.con.query(query, function(err, results, fields){
-    console.log("update: ", results);
-    res.send(results);
+    if (err) {
+      console.log("Error update generations: ", err);
+      res.status(500).send("Error updating generations");
+    } else {
+      console.log("Generations updated: ", results);
+      res.send(results);
+    }
   });
 });
 
