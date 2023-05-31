@@ -1,14 +1,28 @@
 // https://react-bootstrap.github.io/components/modal/
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Axios from 'axios';
 
 export default function GenerateWarning() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [rules, setData] = useState([]);
+
+  // overwrite previous rules
+  const overwritePrevRules = () => {
+    handleClose();
+    Axios.put('/api2/overwritePrevRules')
+      .then(() => {
+        console.log("success");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -19,7 +33,7 @@ export default function GenerateWarning() {
         </Modal.Header>
         <Modal.Body>This will overwrite previously generated rules.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={overwritePrevRules}>
             Okay
           </Button>
           <Button variant="secondary" onClick={handleClose}>
