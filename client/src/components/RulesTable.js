@@ -61,13 +61,15 @@ function RulesTable() {
         return (
               <tr>
                 <td>{val.genID}</td>
-                <td>
-                  {val.familyID}
-                  Complete the {val.aspID} aspiration <br></br>
-                  Finish the {val.careerID} career <br></br>
-                  Have the {val.traitID} trait <br></br>
-                  Max the {val.skillID} skill <br></br>
-                  {val.miscID}
+                <td id="rules">
+                  <ul>
+                    <li>{val.familyDescription} </li>
+                    <li>Aspiration: {val.aspName} </li>
+                    <li> Career: {val.careerName} </li>
+                    <li> Trait: {val.traitName}  </li>
+                    <li> Max the {val.skillName} skill </li>
+                    <li> {val.miscDescription} </li>
+                  </ul>
                 </td>
                 <td Link className="icon"><FontAwesomeIcon icon={faRotateLeft} /></td>
                 <td Link className="icon"><FontAwesomeIcon icon={faShuffle} /></td>

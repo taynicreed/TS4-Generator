@@ -76,7 +76,7 @@ p {
   text-align: left;
 }
 ul {
-  list-style-type: none;
+  list-style-type: disc;
 }
 select{
   margin:0 auto 25px;
