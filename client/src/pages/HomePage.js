@@ -12,6 +12,29 @@ function SaveFile() {
 }
 
 function HomePage() {
+    // generate new rule(s)
+    const generateRules = (gensToUpdate) => {
+      markRulesAsUnused(gensToUpdate);
+      overwritePrevRules(gensToUpdate);
+      Axios.put('/api2/generateRules', gensToUpdate)
+        .then(() => {
+          console.log("success");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    // mark rules in PrevRules as unused
+    const markRulesAsUnused = (gensToUpdate) => {
+      Axios.put('/api2/unusedRules', gensToUpdate)
+        .then(() => {
+          console.log("success");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
 
     // overwrite previous rules
     const overwritePrevRules = (gensToUpdate) => {
@@ -49,7 +72,7 @@ function HomePage() {
 
       <div >
       <GenerateWarning 
-        onOverwritePrevRules={overwritePrevRules}
+        generateAllRules={generateRules}
       />
       </div>
 

@@ -28,7 +28,6 @@ app.get('/rules', (req, res) => {
           INNER JOIN Misc ON Rules.miscID = Misc.miscID;`;
   
   db.con.query(query, function(err, results, fields){
-    console.log("rules: ", results);
     res.send(results);
   });
 });
@@ -41,7 +40,6 @@ app.get('/packs', (req, res) => {
     res.send(results)
   });
 });
-
 
 // update selected packs
 app.put('/packOptions', (req, res) => {
@@ -60,6 +58,7 @@ app.put('/packOptions', (req, res) => {
         } else {
           resolve(results);
         }
+        return;
       });
     });
   };
@@ -89,16 +88,61 @@ app.put('/packOptions', (req, res) => {
 
 // mark rules as unused
 app.put('/unusedRules', (req, res) => {
+  const gensToUpdate = req.body;
+  const genValues = gensToUpdate.join(',');
+
+  const familyQuery = `UPDATE Family INNER JOIN PrevRules
+    ON Family.familyID = PrevRules.familyID SET Family.used = 0 
+    WHERE PrevRules.genID IN (${genValues});`;
+
+  const aspQuery = `UPDATE Aspirations INNER JOIN PrevRules
+    ON Aspirations.aspID = PrevRules.aspID SET Aspirations.used = 0
+    WHERE PrevRules.genID IN (${genValues});`;
+
+  const careerQuery = `UPDATE Careers INNER JOIN PrevRules
+    ON Careers.careerID = PrevRules.careerID SET Careers.used = 0
+    WHERE PrevRules.genID IN (${genValues});`;
+
+  const traitQuery = `UPDATE Traits INNER JOIN PrevRules
+    ON Traits.traitID = PrevRules.traitID SET Traits.used = 0
+    WHERE PrevRules.genID IN (${genValues});`;
+
+  const skillQuery = `UPDATE Skills INNER JOIN PrevRules
+    ON Skills.skillID = PrevRules.skillID SET Skills.used = 0
+    WHERE PrevRules.genID IN (${genValues});`;
+
+  const miscQuery = `UPDATE Misc INNER JOIN PrevRules
+    ON Misc.miscID = PrevRules.miscID SET Misc.used = 0
+    WHERE PrevRules.genID IN (${genValues});`;
   
-  //figure out how to map through rulesToUpdate and update each rule
-  // Family
-  // Aspirations
-  // Careers
-  // Traits
-  // Skills
-  // Misc
+  const queries = [familyQuery, aspQuery, careerQuery, traitQuery, skillQuery, miscQuery];
+
+  const executeAllQueries = () => {
+    const promises = queries.map(query => {
+      return new Promise((resolve, reject) => {
+        db.con.query(query, function(err, results, fields) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results);
+          }
+        });
+      });
+    });
   
+    return Promise.all(promises);
+  };
+  
+  executeAllQueries()
+    .then(results => {
+      res.send(results);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send(err);
+    });
 });
+
 
 // overwrite PrevRules with Rules
 app.put('/overwritePrevRules', (req, res) => {
@@ -124,9 +168,83 @@ app.put('/overwritePrevRules', (req, res) => {
       console.log("Generations updated: ", results);
       res.send(results);
     }
+    return;
   });
 });
 
+app.put('/generateRules', (req, res) => {
+  const gensToUpdate = req.body;
+  const genValues = gensToUpdate.join(',');
+
+  const familyQuery = `UPDATE Rules SET familyID = (SELECT familyID FROM Family WHERE Family.used = 0 
+    AND Family.packID IN (SELECT packID FROM Packs WHERE selected = 1) 
+    ORDER BY RAND() LIMIT 1)
+    WHERE genID IN (${genValues});`
+
+  const familyUsed = `UPDATE Family SET used = 1 WHERE familyID IN (SELECT familyID FROM Rules WHERE genID IN (${genValues}));`
+  
+  const aspQuery = `UPDATE Rules SET aspID = (SELECT aspID FROM Aspirations WHERE Aspirations.used = 0
+    AND Aspirations.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1)
+    WHERE genID IN (${genValues});`
+
+  const aspUsed = `UPDATE Aspirations SET used = 1 WHERE aspID IN (SELECT aspID FROM Rules WHERE genID IN (${genValues}));`
+
+  const careerQuery = `UPDATE Rules SET careerID = (SELECT careerID FROM Careers WHERE Careers.used = 0
+    AND Careers.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1)
+    WHERE genID IN (${genValues});`
+
+  const careerUsed = `UPDATE Careers SET used = 1 WHERE careerID IN (SELECT careerID FROM Rules WHERE genID IN (${genValues}));`
+
+  const traitQuery = `UPDATE Rules SET traitID = (SELECT traitID FROM Traits WHERE Traits.used = 0
+    AND Traits.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1)
+    WHERE genID IN (${genValues});`
+
+  const traitUsed = `UPDATE Traits SET used = 1 WHERE traitID IN (SELECT traitID FROM Rules WHERE genID IN (${genValues}));`
+
+  const skillQuery = `UPDATE Rules SET skillID = (SELECT skillID FROM Skills WHERE Skills.used = 0
+    AND Skills.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1)
+    WHERE genID IN (${genValues});`
+
+  const skillUsed = `UPDATE Skills SET used = 1 WHERE skillID IN (SELECT skillID FROM Rules WHERE genID IN (${genValues}));`
+
+  const miscQuery = `UPDATE Rules SET miscID = (SELECT miscID FROM Misc WHERE Misc.used = 0
+    AND Misc.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1)
+    WHERE genID IN (${genValues});`
+
+  const miscUsed = `UPDATE Misc SET used = 1 WHERE miscID IN (SELECT miscID FROM Rules WHERE genID IN (${genValues}));`
+
+  const queries = [familyQuery, familyUsed, aspQuery, aspUsed, careerQuery, careerUsed, traitQuery, traitUsed, skillQuery, skillUsed, miscQuery, miscUsed];
+
+  const executeAllQueries = () => {
+    const promises = queries.map(query => {
+      return new Promise((resolve, reject) => {
+        db.con.query(query, function(err, results, fields) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results);
+          }
+        });
+      });
+    });
+  
+    return Promise.all(promises);
+  };
+  
+  executeAllQueries()
+    .then(results => {
+      res.send(results);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send(err);
+    });
+});
 
 app.listen(PORT, function(){
   console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')

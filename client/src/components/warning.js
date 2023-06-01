@@ -1,11 +1,10 @@
 // https://react-bootstrap.github.io/components/modal/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Axios from 'axios';
 
-export default function GenerateWarning({onOverwritePrevRules}) {
+export default function GenerateWarning({generateAllRules}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -13,9 +12,10 @@ export default function GenerateWarning({onOverwritePrevRules}) {
 
     const handleGenerate = () => {
         const gensToUpdate = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        // Call the onOverwritePrevRules prop with the gensToUpdate
-        onOverwritePrevRules(gensToUpdate);
+        // Call the generateAllRules prop with the gensToUpdate
+        generateAllRules(gensToUpdate);
         handleClose();
+        window.location.reload(false);
     };
 
 
