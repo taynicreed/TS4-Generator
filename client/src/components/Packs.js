@@ -219,7 +219,9 @@ export default function PackList({ onPackSelection }) {
         <br />
 
         <div className="two-btn">
+        <Link to="/">
             <Button variant="secondary" className="btn btn-light" onClick={handleSelectionSubmit}>Apply</Button>
+        </Link>
         <Link to="/">
             <Button variant="secondary" className="btn btn-light">Cancel</Button>
         </Link>

@@ -143,7 +143,6 @@ app.put('/unusedRules', (req, res) => {
     });
 });
 
-
 // overwrite PrevRules with Rules
 app.put('/overwritePrevRules', (req, res) => {
   const gensToUpdate = req.body;
@@ -165,7 +164,7 @@ app.put('/overwritePrevRules', (req, res) => {
       console.log("Error update generations: ", err);
       res.status(500).send("Error updating generations");
     } else {
-      console.log("Generations updated: ", results);
+      console.log("Generations updated: ", results.affectedRows);
       res.send(results);
     }
     return;
@@ -173,50 +172,49 @@ app.put('/overwritePrevRules', (req, res) => {
 });
 
 app.put('/generateRules', (req, res) => {
-  const gensToUpdate = req.body;
-  const genValues = gensToUpdate.join(',');
+  const genToUpdate = req.body.genToUpdate;
 
   const familyQuery = `UPDATE Rules SET familyID = (SELECT familyID FROM Family WHERE Family.used = 0 
     AND Family.packID IN (SELECT packID FROM Packs WHERE selected = 1) 
     ORDER BY RAND() LIMIT 1)
-    WHERE genID IN (${genValues});`
+    WHERE genID = (${genToUpdate});`
 
-  const familyUsed = `UPDATE Family SET used = 1 WHERE familyID IN (SELECT familyID FROM Rules WHERE genID IN (${genValues}));`
+  const familyUsed = `UPDATE Family SET used = 1 WHERE familyID IN (SELECT familyID FROM Rules WHERE genID = (${genToUpdate}));`
   
   const aspQuery = `UPDATE Rules SET aspID = (SELECT aspID FROM Aspirations WHERE Aspirations.used = 0
     AND Aspirations.packID IN (SELECT packID FROM Packs WHERE selected = 1)
     ORDER BY RAND() LIMIT 1)
-    WHERE genID IN (${genValues});`
+    WHERE genID = (${genToUpdate});`
 
-  const aspUsed = `UPDATE Aspirations SET used = 1 WHERE aspID IN (SELECT aspID FROM Rules WHERE genID IN (${genValues}));`
+  const aspUsed = `UPDATE Aspirations SET used = 1 WHERE aspID IN (SELECT aspID FROM Rules WHERE genID = (${genToUpdate}));`
 
   const careerQuery = `UPDATE Rules SET careerID = (SELECT careerID FROM Careers WHERE Careers.used = 0
     AND Careers.packID IN (SELECT packID FROM Packs WHERE selected = 1)
     ORDER BY RAND() LIMIT 1)
-    WHERE genID IN (${genValues});`
+    WHERE genID = (${genToUpdate});`
 
-  const careerUsed = `UPDATE Careers SET used = 1 WHERE careerID IN (SELECT careerID FROM Rules WHERE genID IN (${genValues}));`
+  const careerUsed = `UPDATE Careers SET used = 1 WHERE careerID IN (SELECT careerID FROM Rules WHERE genID = (${genToUpdate}));`
 
   const traitQuery = `UPDATE Rules SET traitID = (SELECT traitID FROM Traits WHERE Traits.used = 0
     AND Traits.packID IN (SELECT packID FROM Packs WHERE selected = 1)
     ORDER BY RAND() LIMIT 1)
-    WHERE genID IN (${genValues});`
+    WHERE genID = (${genToUpdate});`
 
-  const traitUsed = `UPDATE Traits SET used = 1 WHERE traitID IN (SELECT traitID FROM Rules WHERE genID IN (${genValues}));`
+  const traitUsed = `UPDATE Traits SET used = 1 WHERE traitID IN (SELECT traitID FROM Rules WHERE genID = (${genToUpdate}));`
 
   const skillQuery = `UPDATE Rules SET skillID = (SELECT skillID FROM Skills WHERE Skills.used = 0
     AND Skills.packID IN (SELECT packID FROM Packs WHERE selected = 1)
     ORDER BY RAND() LIMIT 1)
-    WHERE genID IN (${genValues});`
+    WHERE genID = (${genToUpdate});`
 
-  const skillUsed = `UPDATE Skills SET used = 1 WHERE skillID IN (SELECT skillID FROM Rules WHERE genID IN (${genValues}));`
+  const skillUsed = `UPDATE Skills SET used = 1 WHERE skillID IN (SELECT skillID FROM Rules WHERE genID = (${genToUpdate}));`
 
   const miscQuery = `UPDATE Rules SET miscID = (SELECT miscID FROM Misc WHERE Misc.used = 0
     AND Misc.packID IN (SELECT packID FROM Packs WHERE selected = 1)
     ORDER BY RAND() LIMIT 1)
-    WHERE genID IN (${genValues});`
+    WHERE genID = (${genToUpdate});`
 
-  const miscUsed = `UPDATE Misc SET used = 1 WHERE miscID IN (SELECT miscID FROM Rules WHERE genID IN (${genValues}));`
+  const miscUsed = `UPDATE Misc SET used = 1 WHERE miscID IN (SELECT miscID FROM Rules WHERE genID = (${genToUpdate}));`
 
   const queries = [familyQuery, familyUsed, aspQuery, aspUsed, careerQuery, careerUsed, traitQuery, traitUsed, skillQuery, skillUsed, miscQuery, miscUsed];
 
@@ -245,6 +243,50 @@ app.put('/generateRules', (req, res) => {
       res.status(500).send(err);
     });
 });
+
+// get data from one row of PrevRules
+app.get('/prevRules/:genID', (req, res) => {
+  const genID = req.params.genID;
+  const query = `SELECT * FROM PrevRules WHERE genID = ${genID};`;
+
+  db.con.query(query, function(err, results, fields){
+    if (err) {
+      console.log("Error getting prevRules: ", err);
+      res.status(500).send("Error getting prevRules");
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+// fill Rules from cache
+app.put('/fillRules', (req, res) => {
+  const genToUpdate = req.body.genToUpdate;
+  const prevRules = req.body.prevRules;
+  console.log("genToUpdate: ", genToUpdate);
+  console.log("prevRules in /fillRules call: ", prevRules);
+
+  const query = `UPDATE Rules SET 
+    familyID = ${prevRules.familyID},
+    aspID = ${prevRules.aspID},
+    careerID = ${prevRules.careerID},
+    traitID = ${prevRules.traitID},
+    skillID = ${prevRules.skillID},
+    miscID = ${prevRules.miscID}
+    WHERE genID = (${genToUpdate});`
+
+  db.con.query(query, function(err, results, fields){
+    if (err) {
+      console.log("Error update generations: ", err);
+      res.status(500).send("Error updating generations");
+    } else {
+      console.log("Generations updated: ", results.affectedRows);
+      res.send(results);
+    }
+    return;
+  });
+});
+
 
 app.listen(PORT, function(){
   console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')

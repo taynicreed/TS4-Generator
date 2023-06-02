@@ -14,14 +14,19 @@ function SaveFile() {
 function HomePage() {
     // generate new rule(s)
     const generateRules = (gensToUpdate) => {
+      console.log('gensToUpdate: ', gensToUpdate);
       markRulesAsUnused(gensToUpdate);
       overwritePrevRules(gensToUpdate);
-      Axios.put('/api2/generateRules', gensToUpdate)
-        .then(() => {
-          console.log("success");
-        })
-        .catch((error) => {
-          console.log(error);
+
+      gensToUpdate.forEach(gen => {
+        console.log('sending to generateRules: ', {genToUpdate: gen});
+        Axios.put('/api2/generateRules', { genToUpdate: gen})
+          .then(() => {
+            console.log("success");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         });
     };
 
@@ -46,8 +51,35 @@ function HomePage() {
           console.log(error);
         });
     };
-  
 
+    const rerollRule = (genID) => {
+      generateRules([genID]);
+    };
+
+  
+    // undo rule
+    const undoRule = (genID) => {
+
+      Axios.get(`/api2/prevRules/${genID}`)
+        .then((response) => {
+          const prevRules = response.data[0];
+          console.log(prevRules);
+          overwritePrevRules([genID]);
+          fillRulesFromCache(genID, prevRules);
+        });
+    };
+
+    // fill Rules from cache
+    const fillRulesFromCache = (genID, prevRules) => {
+      console.log("Making Axios put req with ", genID, prevRules)
+      Axios.put('/api2/fillRules', {genToUpdate: genID, prevRules: prevRules})
+        .then(() => {
+          window.location.reload(false);
+          console.log("success");
+        });
+    };
+  
+      
   return (
     <div className="App">
       <div>
@@ -79,6 +111,8 @@ function HomePage() {
       <div className="rules">
         <h2>Your Legacy Challenge</h2>
         <RulesTable 
+          undoRule={undoRule}
+          rerollRule={rerollRule}
         />
       </div>
       

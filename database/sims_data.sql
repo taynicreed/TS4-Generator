@@ -8,7 +8,7 @@ DROP TABLE Misc;
 DROP TABLE Family;
 DROP TABLE Skills;
 DROP TABLE Aspirations;
-DROP TABLE Careers;
+DROP TABLE Careers; 
 DROP TABLE Traits;
 DROP TABLE Packs;
 
@@ -217,6 +217,9 @@ INSERT INTO Aspirations (aspName, packID)
         ('Country Caretaker', 'ep11'),
         -- game packs
         ('Outdoor Enthusiast', 'gp1'),
+        ('Inner Peace', 'gp2'),
+        ('Self-Care Specialist', 'gp2'),
+        ('Zen Guru', 'gp2'),
         ('Vampire Family', 'gp4'),
         ('Master Vampire', 'gp4'),
         ('Good Vampire', 'gp4'),
@@ -230,11 +233,16 @@ INSERT INTO Aspirations (aspName, packID)
         ('Paragon of Hope', 'gp9'),
         ('Enforcer of Order', 'gp10'),
         ('Galactic Privateer', 'gp10'),
+        ('Werewolf Initiate', 'gp12'),
+        ('Lone Wolf', 'gp12'),
+        ('Emissary of the Collective', 'gp12'),
+        ('Wildfang Renegade', 'gp12'),
+        ('Cure Seeker', 'gp12'),
         -- stuff packs
         ('Lord/Lady of the Knits', 'sp14'),
         -- kits
         ('Perfectly Pristine', 'k1'),
-        ('Fabulously FIlthy', 'k1');
+        ('Fabulously Filthy', 'k1');
 
 -- Insert Careers 
 INSERT INTO Careers (careerName, packId)
@@ -259,6 +267,11 @@ INSERT INTO Careers (careerName, packId)
         ('Self-Employed Frog Breeder', 'bg'),
         ('Self-Employed Fisherman', 'bg'),
         ('Self-Employed Gardener', 'bg'),
+        ('Baby Sitter (part-time)', 'bg'),
+        ('Barista (part-time)', 'bg'),
+        ('Fast Food Employee (part-time)', 'bg'),
+        ('Manual Laborer (part-time)', 'bg'),
+        ('Retail Employee (part-time)', 'bg'),
         -- Expansion Packs
         ('Detective', 'ep1'),
         ('Doctor', 'ep1'),
@@ -283,12 +296,19 @@ INSERT INTO Careers (careerName, packId)
         ('Civil Designer', 'ep9'),
         ('Self-Employed Dumpster Treasure Reseller', 'ep9'),
         ('Salaryperson', 'ep10'),
+        ('Self-Employed Animal Product Farmer', 'ep11'),
+        ('Self-Employed Trendi Seller', 'ep12'),
+        ('Simfluencer (part-time)', 'ep12'), 
+        ('Video Game Streamer (part-time)', 'ep12'),
         -- game packs
+        ('Self-Employed Wellness Instructor', 'gp2'),
+        ('Self-Employed Restaurant Owner', 'gp3'),
         ('Self-Employed Selvadorada Artifact Seller', 'gp6'),
         ('Military', 'gp7'),
         ('Interior Decorator', 'gp10'),
         -- stuff packs
         ('Freelancer (Fashion Photographer)', 'gp12'),
+        ('Self-Employed Knitter', 'sp14'),
         ('Freelancer (Paranormal Investigator)', 'sp15');
 
 -- Insert Traits 
@@ -432,6 +452,20 @@ INSERT INTO Family (familyDescription, packID)
         ('All children must be adopted', 'bg'),
         ('Have two children with a large age gap', 'bg'),
         ('Have an affair at some point', 'bg'),
+        ('Have five children', 'bg'),
+        ('Divorce and remarry the same sim', 'bg'),
+        ('Get married for the first time as an elder', 'bg'),
+        ('Have a child with a sim you are not married to', 'bg'),
+        ('Marry someone who already has kids', 'bg'),
+        ('Live with a friend for your entire adulthood', 'bg'),
+        ('Have three children with rhyming names', 'bg'),
+        ('Have at least two children', 'bg'),
+        ('Live in a multi-generational home', 'bg'),
+        ('Adopt a child as an elder', 'bg'),
+        ('Marry someone very different from you in some way', 'bg'),
+        ('Raise your children as a single parent', 'bg'),
+        ('Adopt a child from each age group', 'bg'),
+        ('Marry someone you meet through work', 'bg'),
         -- expansion packs
         ('Have a relationship with an alien sim', 'ep1'),
         ('Marry someone you meet through a club', 'ep2'),
@@ -441,10 +475,22 @@ INSERT INTO Family (familyDescription, packID)
         ('Get married at the Romance Festival', 'ep3'),
         ('Have a relationship with a celebrity', 'ep6'), 
         ('Have a relationship with a mermaid', 'ep7'),
+        ('Marry someone that you do an odd job for', 'ep7'),
         ('Have your wedding in Sulani', 'ep7'),
-        ('Marry someone you meet at university', 'ep8');
-
-
+        ('Marry someone you meet at university', 'ep8'),
+        ('Marry a Servo', 'ep8'),
+        ('Marry someone that you meet on Mt. Komorebi', 'ep10'),
+        -- game packs
+        ('Marry someone you meet while camping', 'gp1'),
+        ('Have at least one child with a vampire', 'gp4'),
+        ('Have a relationship with a Selvadoradian', 'gp6'),
+        ('Marry a spellcaster', 'gp8'),
+        ('Marry a sim you meet at the Batuu marketplace', 'gp9'),
+        ('Have a traditional wedding ceremony with reception', 'gp11'),
+        ('Marry a werewolf', 'gp12'),
+        -- stuff packs
+        ('Use the wishing well to wish for children', 'sp4'),
+        ('Marry a sim you meet at the bowling alley', 'sp7');
 
 -- Insert Misc  
 INSERT INTO Misc (miscDescription, packID)
@@ -457,15 +503,31 @@ INSERT INTO Misc (miscDescription, packID)
         ('Live in Willow Creek', 'bg'),
         ('Live in Oasis Springs', 'bg'),
         ('Live in Newcrest', 'bg'),
+        ('Complete the frog collection', 'bg'),
+        ('Complete the crystal collection', 'bg'),
+        ('Complete the fossil collection', 'bg'),
+        ('Live in three different worlds through your life', 'bg'),
+        ('Must complete one additional aspiration of your choice', 'bg'),
+        ('All children must complete their childhood aspirations', 'bg'),
+        ('Maintain a close friendship with three sims throughout your entire life', 'bg'),
+        ('Live on a lot with the "Off the Grid" challenge', 'bg'),
+        ('Upgrade all of your appliances at least once', 'bg'),
+        ('Must have a pool in your backyard', 'bg'),
+        ('Never move away from your childhood home', 'bg'),
+        ('Bring a ghost back to life with ambrosia', 'bg'),
+        ('Use the Potion of Youth to extend your life', 'bg'),
+        ('Max out three additional skills of your choice', 'bg'),
         -- expansion packs
         ('Visit Sixam', 'ep1'),
+        ('Build a complete rocket ship', 'ep1'),
         ('Whenever possible, purchase items from a retail store instead of through the buy catalog', 'ep1'),
         ('Join an existing club and attend gatherings whenever you are invited', 'ep2'),
         ('Live in Windenburg', 'ep2'),
         ('Live in San Myshuno', 'ep3'),
+        ('Live on a lot with the "Cursed" challenge', 'ep3'),
         ('Attend each city festival at least once', 'ep3'),
         ('Move into an apartment as a young adult', 'ep3'),
-        ('Live on a lot with the "Grody" trait', 'ep3'),
+        ('Live on a lot with the "Filthy" challenge', 'ep3'),
         ('Collect City Posters', 'ep3'),
         ('Collect Snow Globes', 'ep3'),
         ('Learn all of the City Food Stall recipes in San Myshuno (within your dietary restrictions)', 'ep3'),
@@ -476,30 +538,79 @@ INSERT INTO Misc (miscDescription, packID)
         ('Create a custom holiday for your family to celebrate every year', 'ep5'),
         ('Decorate for all major holidays', 'ep5'),
         ('Live in Del Sol Valley', 'ep6'),
+        ('Live on a lot with the "Celebrity Home" lot trait', 'ep6'),
         ('Become famous', 'ep6'),
         ('Try to get an autograph from every celebrity you see', 'ep6'),
         ('Live in Sulani', 'ep7'),
+        ('Live on a lot with the "Island Spirits" lot trait', 'ep7'),
         ('Earn gold for a Kava Party', 'ep7'),
         ('Attend university for at least one term, but drop out before completing a degree', 'ep8'),
-
+        ('Attend university for something unrelated to your career', 'ep8'),
         ('Live in Britechester', 'ep8'),
         ('Live in Evergreen Harbor', 'ep9'),
+        ('Fabricate as much furniture for your house as possible', 'ep9'),
+        ('Furnish your house with 10+ dumpster diving finds', 'ep9'),
         ('Live in Mt. Komorebi', 'ep10'),
+        ('Vacation to Mt. Komorebi five times', 'ep10'),
+        ('Attend all the Mt. Komorebi festivals at least once', 'ep10'),
+        ('Complete the Mountain Climb Excursion', 'ep10'),
         ('Live in Henford-on-Bagley', 'ep11'),
+        ('Live on a lot with the "Simple Living" challenge', 'ep11'),
+        ('Attend the Finchwick Fair every week', 'ep11'),
+        ('All children must join an after school activity as teens', 'ep12'),
         ('Live in Copperdale', 'ep12'),
         ('Live in San Sequoia', 'ep13'),
-        
+        ('Children must complete at least 10 milestones before adulthood', 'ep13'),
+        ('Build a splash pad on your lot', 'ep13'),
+        ('Must accept all stay-over requests', 'ep13'),
+        ('Build a treehouse with your kid(s)', 'ep13'),
+        ('Must accept all family dynamic pop-ups', 'ep13'),
+        ('Must accept all self-discovery traits', 'ep13'),
+        ('Children must grow up with high confidence', 'ep13'),
         -- game packs
-        ('Live in Strangerville', 'gp7'),
+        ('Go camping in Granite Falls at least five times', 'gp1'),
+        ('Earn gold for a "Weenie Roast" party', 'gp1'),
+        ('Identify all unidentified plants in Granite Falls', 'gp1'),
+        ('Visit the spa regularly', 'gp2'),
+        ('Have a "wellness room" in your house', 'gp2'),
+        ('Learn all 20 "experimental" recipes at restaurants', 'gp3'),
+        ('Go out to a restaurant for all your birthdays', 'gp3'),
+        ('Live on a lot with the "Vampire Nexus" lot trait', 'gp4'),
+        ('Live in Forgotten Hollow', 'gp4'),
+        ('Become a vampire at some point in your life', 'gp4'),
+        ('All kids age up with 1+ positive character trait', 'gp5'),
+        ('All kids age up with 1+ negative character trait', 'gp5'),
+        ('Visit Selvadorada at least three times', 'gp6'),
+        ('Explore a temple in Selvadorada', 'gp6'),
+        ('Find the relic needed and summon a skeleton', 'gp6'),
+        ('Live in StrangerVille', 'gp7'),
+        ('Complete the StrangerVille story', 'gp7'),
         ('Live in Glimmerbrook', 'gp8'),
-        ('Visit Batuu', 'gp9'),
-        ('Live in Mt. Komorebi', 'gp10'),
-        ('Live in Henford-on-Bagley', 'gp11'),
-        ('Live in Forgotten Hollow', 'gp12'),
+        ('Become a spellcaster', 'gp8'),
+        ('Visit Batuu at least once', 'gp9'),
+        ('Become a werewolf', 'gp12'),
         -- stuff packs
+        ('Have a weekly ice cream making night with your kid(s)', 'sp1'),
         ('Throw a spooky party every fall', 'sp2'),
+        ('Have a movie night with your family once a wekk', 'sp3'),
+        ('Try to resurrect a ghost with the wishing well', 'sp4'), 
+        ('Use the wishing well three times', 'sp4'), 
+        ('Complete the Voidcritter collection', 'sp5'),
+        ('Hire a butler', 'sp6'),
+        ('Take all your dates bowling', 'sp7'), 
+        ('Add a rock climbing wall to your home and use it several times a week', 'sp8'),
+        ('Throw a toddler play date for every kid you have', 'sp9'),
+        ('Have a washer and dryer in your home', 'sp10'),
+        ('Have your babies use cloth diapers', 'sp10'),
+        ('Always have at least one pet rodent in your home', 'sp11'),
+        ('Have a gallery wall of family photos in your home', 'sp12'),
+        ('Live in a tiny home for your entire adult life', 'sp13'),
+        ('Knit gifts for all of your friends and loved ones', 'sp14'),
+        ('Summon Bonehilda at least once', 'sp15'),
+        ('Live in a haunted house', 'sp15'),
         -- kits
-        ('Keep and befriend every dust bunny that appears in your home', 'k1');
+        ('Keep and befriend every dust bunny that appears in your home', 'k1'),
+        ('Build a backyard movie theater on your lot', 'k2');
 
 -- Insert Rules
 INSERT INTO Rules (genID, familyID, aspID, careerID, traitID, skillID, miscID)
@@ -556,7 +667,3 @@ UPDATE Skills SET used = 1 WHERE skillID in (
     SELECT skillID FROM PrevRules);
 UPDATE Misc SET used = 1 WHERE miscID in (
     SELECT miscID FROM PrevRules);
-
-
-
-

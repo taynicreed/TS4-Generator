@@ -26,7 +26,7 @@ export default function GenerateWarning({generateAllRules}) {
         <Modal.Header >
           <Modal.Title>Warning</Modal.Title>
         </Modal.Header>
-        <Modal.Body>This will overwrite previously generated rules.</Modal.Body>
+        <Modal.Body>This will overwrite all current rules.</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleGenerate}>
             Okay

@@ -27,7 +27,7 @@ const popover2 = (
 
 
   
-function RulesTable() {
+function RulesTable({undoRule, rerollRule}) {
 
   const [rules, setData] = useState([]);
 
@@ -38,6 +38,15 @@ function RulesTable() {
       setData(response.data);
     });
   }, []);
+
+  const handleUndo = (genID) => {
+    undoRule(genID);
+  };
+
+  const handleReroll = (genID) => {
+    rerollRule(genID);
+    window.location.reload(false);
+  };
 
       return (
         <div>
@@ -71,8 +80,8 @@ function RulesTable() {
                     <li> {val.miscDescription} </li>
                   </ul>
                 </td>
-                <td Link className="icon"><FontAwesomeIcon icon={faRotateLeft} /></td>
-                <td Link className="icon"><FontAwesomeIcon icon={faShuffle} /></td>
+                <td Link className="icon" onClick={() => handleUndo(val.genID)}><FontAwesomeIcon icon={faRotateLeft} /></td>
+                <td Link className="icon" onClick={() => handleReroll(val.genID)}><FontAwesomeIcon icon={faShuffle} /></td>
               </tr>
           );
         })}
