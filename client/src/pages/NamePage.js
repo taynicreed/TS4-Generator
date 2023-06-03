@@ -6,25 +6,17 @@ const NamePage = () => {
 
 // get random name from microservice
 const handleClick = async () => {
-    try {
-      const response = await fetch('/api1/name');
-
-      if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      console.log('result is: ', JSON.stringify(result, null, 4));
-
-      setData(result);
-
-    } catch (err) {
-      setErr(err.message);
-    } 
-  };
-
-  console.log(data);
+  try {
+    const response = await fetch('/api1/name');
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+    const result = await response.json();
+    setData(result);
+  } catch (err) {
+    setErr(err.message);
+  } 
+};
 
   return (
     <div className="App">

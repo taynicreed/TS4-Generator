@@ -175,49 +175,50 @@ app.put('/overwritePrevRules', (req, res) => {
 app.put('/generateRules', (req, res) => {
   const genToUpdate = req.body.genToUpdate;
 
-  const familyQuery = `UPDATE Rules SET familyID = (SELECT familyID FROM Family WHERE Family.used = 0 
-    AND Family.packID IN (SELECT packID FROM Packs WHERE selected = 1) 
-    ORDER BY RAND() LIMIT 1)
-    WHERE genID = (${genToUpdate});`
+  const familyQuery = `UPDATE Rules SET familyID = (SELECT familyID FROM Family 
+    WHERE Family.used = 0 AND Family.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1) WHERE genID = (${genToUpdate});`
 
-  const familyUsed = `UPDATE Family SET used = 1 WHERE familyID IN (SELECT familyID FROM Rules WHERE genID = (${genToUpdate}));`
+  const familyUsed = `UPDATE Family SET used = 1 WHERE familyID IN 
+    (SELECT familyID FROM Rules WHERE genID = (${genToUpdate}));`
   
-  const aspQuery = `UPDATE Rules SET aspID = (SELECT aspID FROM Aspirations WHERE Aspirations.used = 0
-    AND Aspirations.packID IN (SELECT packID FROM Packs WHERE selected = 1)
-    ORDER BY RAND() LIMIT 1)
-    WHERE genID = (${genToUpdate});`
+  const aspQuery = `UPDATE Rules SET aspID = (SELECT aspID FROM Aspirations 
+    WHERE Aspirations.used = 0 AND Aspirations.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1) WHERE genID = (${genToUpdate});`
 
-  const aspUsed = `UPDATE Aspirations SET used = 1 WHERE aspID IN (SELECT aspID FROM Rules WHERE genID = (${genToUpdate}));`
+  const aspUsed = `UPDATE Aspirations SET used = 1 WHERE aspID IN 
+    (SELECT aspID FROM Rules WHERE genID = (${genToUpdate}));`
 
-  const careerQuery = `UPDATE Rules SET careerID = (SELECT careerID FROM Careers WHERE Careers.used = 0
-    AND Careers.packID IN (SELECT packID FROM Packs WHERE selected = 1)
-    ORDER BY RAND() LIMIT 1)
-    WHERE genID = (${genToUpdate});`
+  const careerQuery = `UPDATE Rules SET careerID = (SELECT careerID FROM Careers 
+    WHERE Careers.used = 0 AND Careers.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1) WHERE genID = (${genToUpdate});`
 
-  const careerUsed = `UPDATE Careers SET used = 1 WHERE careerID IN (SELECT careerID FROM Rules WHERE genID = (${genToUpdate}));`
+  const careerUsed = `UPDATE Careers SET used = 1 WHERE careerID IN 
+    (SELECT careerID FROM Rules WHERE genID = (${genToUpdate}));`
 
-  const traitQuery = `UPDATE Rules SET traitID = (SELECT traitID FROM Traits WHERE Traits.used = 0
-    AND Traits.packID IN (SELECT packID FROM Packs WHERE selected = 1)
-    ORDER BY RAND() LIMIT 1)
-    WHERE genID = (${genToUpdate});`
+  const traitQuery = `UPDATE Rules SET traitID = (SELECT traitID FROM Traits 
+    WHERE Traits.used = 0 AND Traits.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1) WHERE genID = (${genToUpdate});`
 
-  const traitUsed = `UPDATE Traits SET used = 1 WHERE traitID IN (SELECT traitID FROM Rules WHERE genID = (${genToUpdate}));`
+  const traitUsed = `UPDATE Traits SET used = 1 WHERE traitID IN 
+    (SELECT traitID FROM Rules WHERE genID = (${genToUpdate}));`
 
-  const skillQuery = `UPDATE Rules SET skillID = (SELECT skillID FROM Skills WHERE Skills.used = 0
-    AND Skills.packID IN (SELECT packID FROM Packs WHERE selected = 1)
-    ORDER BY RAND() LIMIT 1)
-    WHERE genID = (${genToUpdate});`
+  const skillQuery = `UPDATE Rules SET skillID = (SELECT skillID FROM Skills 
+    WHERE Skills.used = 0 AND Skills.packID IN (SELECT packID FROM Packs WHERE selected = 1) 
+    ORDER BY RAND() LIMIT 1) WHERE genID = (${genToUpdate});`
 
-  const skillUsed = `UPDATE Skills SET used = 1 WHERE skillID IN (SELECT skillID FROM Rules WHERE genID = (${genToUpdate}));`
+  const skillUsed = `UPDATE Skills SET used = 1 WHERE skillID IN 
+    (SELECT skillID FROM Rules WHERE genID = (${genToUpdate}));`
 
-  const miscQuery = `UPDATE Rules SET miscID = (SELECT miscID FROM Misc WHERE Misc.used = 0
-    AND Misc.packID IN (SELECT packID FROM Packs WHERE selected = 1)
-    ORDER BY RAND() LIMIT 1)
-    WHERE genID = (${genToUpdate});`
+  const miscQuery = `UPDATE Rules SET miscID = (SELECT miscID FROM Misc 
+    WHERE Misc.used = 0 AND Misc.packID IN (SELECT packID FROM Packs WHERE selected = 1)
+    ORDER BY RAND() LIMIT 1) WHERE genID = (${genToUpdate});`
 
-  const miscUsed = `UPDATE Misc SET used = 1 WHERE miscID IN (SELECT miscID FROM Rules WHERE genID = (${genToUpdate}));`
+  const miscUsed = `UPDATE Misc SET used = 1 WHERE miscID IN 
+    (SELECT miscID FROM Rules WHERE genID = (${genToUpdate}));`
 
-  const queries = [familyQuery, familyUsed, aspQuery, aspUsed, careerQuery, careerUsed, traitQuery, traitUsed, skillQuery, skillUsed, miscQuery, miscUsed];
+  const queries = [familyQuery, familyUsed, aspQuery, aspUsed, careerQuery, careerUsed, 
+      traitQuery, traitUsed, skillQuery, skillUsed, miscQuery, miscUsed];
 
   const executeAllQueries = () => {
     const promises = queries.map(query => {
@@ -260,7 +261,7 @@ app.get('/prevRules/:genID', (req, res) => {
   });
 });
 
-// fill Rules from cache
+// fill Rules from temp array
 app.put('/fillRules', (req, res) => {
   const genToUpdate = req.body.genToUpdate;
   const prevRules = req.body.prevRules;

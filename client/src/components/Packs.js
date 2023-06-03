@@ -13,136 +13,135 @@ export default function PackList({ onPackSelection }) {
   // get packs from database
   useEffect(() => {
     Axios.get('/api2/packs').then((response) => {
-        const data = response.data;
+      const data = response.data;
 
-        // filters packs by type before mapping
-        const expansionPacksData = data.filter(pack => pack.packType === 'Expansion');
-        const gamePacksData = data.filter(pack => pack.packType === 'Game');
-        const stuffPacksData = data.filter(pack => pack.packType === 'Stuff'); 
-        const kitsData = data.filter(pack => pack.packType === 'Kit');    
-    
-        // map packs to appropriate arrays
-        setExpansionPacks(expansionPacksData.map(pack => ({
-            id: pack.packID,
-            packName: pack.packName,
-            type: pack.packType,
-            checked: pack.selected
-        })));
+      // filters packs by type before mapping
+      const expansionPacksData = data.filter(pack => pack.packType === 'Expansion');
+      const gamePacksData = data.filter(pack => pack.packType === 'Game');
+      const stuffPacksData = data.filter(pack => pack.packType === 'Stuff'); 
+      const kitsData = data.filter(pack => pack.packType === 'Kit');    
   
-        setGamePacks(gamePacksData.map(pack => ({
-            id: pack.packID,
-            packName: pack.packName,
-            type: pack.packType,
-            checked: pack.selected
-        })));
-    
-        setStuffPacks(stuffPacksData.map(pack => ({
-            id: pack.packID,
-            packName: pack.packName,
-            type: pack.packType,
-            checked: pack.selected
-        })));
-    
-        setKits(kitsData.map(pack => ({
-            id: pack.packID,
-            packName: pack.packName,
-            type: pack.packType,
-            checked: pack.selected
-        })));
-    });
+      // map packs to appropriate arrays
+      setExpansionPacks(expansionPacksData.map(pack => ({
+        id: pack.packID,
+        packName: pack.packName,
+        type: pack.packType,
+        checked: pack.selected
+      })));
+
+      setGamePacks(gamePacksData.map(pack => ({
+        id: pack.packID,
+        packName: pack.packName,
+        type: pack.packType,
+        checked: pack.selected
+      })));
+  
+      setStuffPacks(stuffPacksData.map(pack => ({
+        id: pack.packID,
+        packName: pack.packName,
+        type: pack.packType,
+        checked: pack.selected
+      })));
+  
+      setKits(kitsData.map(pack => ({
+        id: pack.packID,
+        packName: pack.packName,
+        type: pack.packType,
+        checked: pack.selected
+      })));
+  });
 }, []);
 
 
   // Action of select all button
   const selectAll = () => {
-      const changeAll = expansionPacks.map((checkbox) => ({
-          ...checkbox, checked: true,
-      }));
+    const changeAll = expansionPacks.map((checkbox) => ({
+      ...checkbox, checked: true,
+    }));
 
-      const changeAll2 = gamePacks.map((checkbox) => ({
-          ...checkbox, checked: true,
-      }));
+    const changeAll2 = gamePacks.map((checkbox) => ({
+      ...checkbox, checked: true,
+    }));
 
-      const changeAll3 = stuffPacks.map((checkbox) => ({
-          ...checkbox, checked: true,
-      }));
+    const changeAll3 = stuffPacks.map((checkbox) => ({
+      ...checkbox, checked: true,
+    }));
 
-      const changeAll4 = kits.map((checkbox) => ({
-          ...checkbox, checked: true,
-      }));
-  
-      setExpansionPacks(changeAll);
-      setGamePacks(changeAll2);
-      setStuffPacks(changeAll3);
-      setKits(changeAll4);
+    const changeAll4 = kits.map((checkbox) => ({
+      ...checkbox, checked: true,
+    }));
+
+    setExpansionPacks(changeAll);
+    setGamePacks(changeAll2);
+    setStuffPacks(changeAll3);
+    setKits(changeAll4);
   };
   
   // Action of deselect all button
   const deselectAll = () => {
-      const changeAll = expansionPacks.map((checkbox) => ({
-          ...checkbox, checked: false,
-      }));
-      
-      const changeAll2 = gamePacks.map((checkbox) => ({
-          ...checkbox, checked: false,
-      }));
+    const changeAll = expansionPacks.map((checkbox) => ({
+      ...checkbox, checked: false,
+    }));
+    
+    const changeAll2 = gamePacks.map((checkbox) => ({
+      ...checkbox, checked: false,
+    }));
 
-      const changeAll3 = stuffPacks.map((checkbox) => ({
-          ...checkbox, checked: false,
-      }));
+    const changeAll3 = stuffPacks.map((checkbox) => ({
+      ...checkbox, checked: false,
+    }));
 
-      const changeAll4 = kits.map((checkbox) => ({
-          ...checkbox, checked: false,
-      }));
-      
-      setExpansionPacks(changeAll);
-      setGamePacks(changeAll2);
-      setStuffPacks(changeAll3);
-      setKits(changeAll4);
+    const changeAll4 = kits.map((checkbox) => ({
+      ...checkbox, checked: false,
+    }));
+    
+    setExpansionPacks(changeAll);
+    setGamePacks(changeAll2);
+    setStuffPacks(changeAll3);
+    setKits(changeAll4);
   };
 
   // Action of individual checkbox
   const handleChange = (checkboxID, packCategory) => {
-      switch (packCategory) {
-          case 'expansionPacks':
-              setExpansionPacks((prevState) =>
-                  prevState.map((checkbox) =>
-                      checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
-                      ));
-              break;
-          case 'gamePacks':
-              setGamePacks((prevState) =>
-                  prevState.map((checkbox) =>
-                      checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
-                      ));
-              break;
-          case 'stuffPacks':
-              setStuffPacks((prevState) =>
-                  prevState.map((checkbox) =>
-                      checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
-                      ));
-              break;
-          case 'kits':
-              setKits((prevState) =>
-                  prevState.map((checkbox) =>
-                      checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
-                      ));
-              break;
-          default:
-              break;
-          }
-        };
+    switch (packCategory) {
+      case 'expansionPacks':
+        setExpansionPacks((prevState) =>
+          prevState.map((checkbox) =>
+            checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
+          ));
+        break;
+      case 'gamePacks':
+        setGamePacks((prevState) =>
+          prevState.map((checkbox) =>
+            checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
+          ));
+        break;
+      case 'stuffPacks':
+        setStuffPacks((prevState) =>
+          prevState.map((checkbox) =>
+            checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
+          ));
+        break;
+      case 'kits':
+        setKits((prevState) =>
+          prevState.map((checkbox) =>
+            checkbox.id === checkboxID ? { ...checkbox, checked: checkbox.checked ? 0 : 1 } : checkbox
+          ));
+        break;
+      default:
+        break;
+  }};
 
     // Update database with new pack selections on submit
     const handleSelectionSubmit = () => {
-        const packsToUpdate = [...expansionPacks, ...gamePacks, ...stuffPacks, ...kits];
-        const updatedPacks = packsToUpdate.map((pack) => ({
-          packID: pack.id,
-          selected: pack.checked,
-        }));
+      const packsToUpdate = [...expansionPacks, ...gamePacks, ...stuffPacks, ...kits];
+      const updatedPacks = packsToUpdate.map((pack) => ({
+        packID: pack.id,
+        selected: pack.checked,
+      }));
 
-        // Call the onPackSelection prop with the updatedPacks
-        onPackSelection(updatedPacks);
+      // Call the onPackSelection prop with the updatedPacks
+      onPackSelection(updatedPacks);
     };
 
     return (
