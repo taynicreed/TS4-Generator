@@ -1,6 +1,5 @@
 // Code based on https://bobbyhadz.com/blog/react-fetch-data-on-button-click
 import {useState} from 'react';
-import {Link} from "react-router-dom";
 
 
 const NamePage = () => {
@@ -29,7 +28,7 @@ const handleClick = async () => {
   console.log(data);
 
   return (
-    <div>
+    <div className="App">
       <h1>Name Generator</h1>
       <p>Click the button below to generate a random name for your sim.</p>
       <button type="button" className="btn btn-light" onClick={handleClick}>Get Name</button>
@@ -38,9 +37,6 @@ const handleClick = async () => {
         <h2>{data.name}</h2>
 
         <div >
-        <Link to="/">
-          <button type="button" className="btn btn-light">Home</button>
-        </Link>
       </div>
      </div>
   );

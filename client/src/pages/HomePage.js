@@ -1,15 +1,35 @@
 import React from 'react';
 import RulesTable from '../components/RulesTable';
-import GenerateWarning from '../components/warning'
-import {Link} from "react-router-dom";
+import GenerateRules from '../components/generateRules'
 import { saveAs } from 'file-saver';
 import Axios from 'axios';
+import Button from 'react-bootstrap/esm/Button';
 
 
 function SaveFile() {
-  var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-  saveAs(blob, "legacy_challenge.txt");
-}
+  Axios.get('/api2/rules')
+    .then((response) => {
+      const rules = response.data;
+
+      // format rules
+      const formattedRules = rules.map(rule => {
+        return `Generation ${rule.genID}\n` +
+        `Family: ${rule.familyDescription}\n` +
+        `Aspiration: ${rule.aspName}\n` +
+        `Career: ${rule.careerName}\n` +
+        `Trait: ${rule.traitName}\n` +
+        `Skill: ${rule.skillName}\n` +
+        `Misc: ${rule.miscDescription}\n\n`;
+      });
+
+      const rulesString = formattedRules.join("\n");
+      const blob = new Blob([rulesString], {type: "text/plain;charset=utf-8"});
+      saveAs(blob, "legacy_challenge.txt");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 function HomePage() {
     // generate new rule(s)
@@ -56,10 +76,8 @@ function HomePage() {
       generateRules([genID]);
     };
 
-  
     // undo rule
     const undoRule = (genID) => {
-
       Axios.get(`/api2/prevRules/${genID}`)
         .then((response) => {
           const prevRules = response.data[0];
@@ -93,19 +111,10 @@ function HomePage() {
       </div>
 
       <div className="two-btn">
-        <Link to="/options">
-        <button type="button" className="btn btn-light">Options</button>
-        </Link>
-
-        <Link to="/instructions">
-        <button type="button" className="btn btn-light">Instructions</button>
-        </Link>
-      </div>
-
-      <div >
-      <GenerateWarning 
+      <GenerateRules 
         generateAllRules={generateRules}
-      />
+      />&nbsp;&nbsp;&nbsp;
+      <Button variant="secondary" onClick={SaveFile}>Save Rules</Button>
       </div>
 
       <div className="rules">
@@ -115,13 +124,6 @@ function HomePage() {
           rerollRule={rerollRule}
         />
       </div>
-      
-      <div className="btns">
-        <button type="button" className="btn btn-light" onClick={SaveFile}>Save</button>
-        <Link to="/name">
-        <button type="button" className="btn btn-light">Name Generator</button>
-        </Link>      
-        </div>
 
     </div>
 

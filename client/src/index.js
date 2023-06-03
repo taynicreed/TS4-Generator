@@ -10,7 +10,6 @@ import InstructionsPage from './pages/InstructionsPage';
 import OptionsPage from './pages/OptionsPage';
 import NamePage from './pages/NamePage';
 
-
 export default function App() {
   return (
     <BrowserRouter>

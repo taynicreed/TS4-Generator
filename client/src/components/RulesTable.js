@@ -7,8 +7,6 @@ import Popover from 'react-bootstrap/Popover';
 import {useState, useEffect} from 'react';
 import Axios from 'axios';
 
-//import { faArrowRotateLeft } from '@fortawesome/media-playback';
-//const rerollIcon = <FontAwesomeIcon icon={faArrowRotateLeft} />;
 const popover1 = (
     <Popover id="popover-basic">
       <Popover.Body>

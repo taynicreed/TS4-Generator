@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-export default function GenerateWarning({generateAllRules}) {
+export default function GenerateRules({generateAllRules}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -21,7 +21,7 @@ export default function GenerateWarning({generateAllRules}) {
 
   return (
     <>
-    <button type="button" className="btn btn-light" onClick={handleShow}>Generate Rules</button>
+    <Button variant="success" onClick={handleShow}>Generate Rules</Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header >
           <Modal.Title>Warning</Modal.Title>

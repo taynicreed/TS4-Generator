@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import {Link} from "react-router-dom";
-import Button from 'react-bootstrap/Button';
-
+import React from "react";
 import PackList from '../components/Packs';
 import Axios from "axios";
 
@@ -23,14 +20,14 @@ function OptionsPage() {
         <div>
             <h1>
               <strong>
-              Options  
+              Select Your Packs  
               </strong>    
             </h1>
-          <h2>
-              Packs
-          </h2>
           <h3>
-            Select the packs you own to create customized rules
+            Select the packs you want to use for your custom legacy challenge.
+          </h3>
+          <h3>
+            This list only includes packs with gameplay features.
           </h3>
 
           <PackList 
@@ -39,7 +36,6 @@ function OptionsPage() {
 
           <div className="packs">
           </div>
-          <p>Don't see a pack on the list? Only packs with gameplay features are included.</p>
         </div>
 
    

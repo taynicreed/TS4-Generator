@@ -149,6 +149,12 @@ export default function PackList({ onPackSelection }) {
     };
 
     return (
+      <>
+      <div className="two-btn">
+        <Button variant="success" onClick={() => selectAll()}>Select all</Button>
+        &nbsp;&nbsp;&nbsp;
+        <Button variant="secondary" onClick={() => deselectAll()}>Deselect All</Button>
+      </div>
       <div className="container">
         <div>
           <label><strong>Expansion Packs</strong><br/></label>
@@ -210,24 +216,22 @@ export default function PackList({ onPackSelection }) {
           ))}
           <br />
         </div>
-  
-        <br />
-        <div className="two-btn">
-        <button type="button" className="btn btn-light" onClick={() => selectAll()}>Select all</button>
-        <button type="button" className="btn btn-light" onClick={() => deselectAll()}>Deselect All</button>
-        </div>
-        <br />
-
-        <div className="two-btn">
-        <Link to="/">
-            <Button variant="secondary" className="btn btn-light" onClick={handleSelectionSubmit}>Apply</Button>
-        </Link>
-        <Link to="/">
-            <Button variant="secondary" className="btn btn-light">Cancel</Button>
-        </Link>
-        </div>
-
       </div>
+      
+        <div className="two-btn">
+        <Link to="/">
+            <Button variant="success" onClick={handleSelectionSubmit}>Apply</Button>
+        </Link>
+        &nbsp;&nbsp;&nbsp;
+        <Link to="/">
+            <Button variant="secondary">Cancel</Button>
+        </Link>
+        </div>
+        <h3>
+          After applying changes please use the "Generate Rule" button on the home page to get updated challenge rules.
+        </h3>
+
+      </>
 
     );
   }
