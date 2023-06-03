@@ -1,9 +1,9 @@
 import React from "react";
-import PackList from '../components/Packs';
 import Axios from "axios";
-
+import PackList from '../components/Packs';
 
 function OptionsPage() {
+
     // Update database with new pack selections on submit
     const handlePackSelection = (updatedPacks) => {
       Axios.put('/api2/packOptions', updatedPacks)

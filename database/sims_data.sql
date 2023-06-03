@@ -123,9 +123,8 @@ CREATE TABLE PrevRules (
 );
 
 -- -----------------------------------------------------
--- Insert Data
+-- Insert Rule Data
 -- -----------------------------------------------------
-
 -- Insert Packs data
 INSERT INTO Packs (packID, packName, packType)
     VALUES 
@@ -612,20 +611,23 @@ INSERT INTO Misc (miscDescription, packID)
         ('Keep and befriend every dust bunny that appears in your home', 'k1'),
         ('Build a backyard movie theater on your lot', 'k2');
 
--- Insert Rules
+
+
+-- -----------------------------------------------------
+-- Insert Default Rules/PrevRules
+-- -----------------------------------------------------
 INSERT INTO Rules (genID, familyID, aspID, careerID, traitID, skillID, miscID)
     VALUES
-        (1, 2, 3, 4, 5, 6, 7), 
-        (2, 3, 4, 5, 6, 7, 8), 
-        (3, 4, 5, 6, 7, 8, 9), 
-        (4, 5, 6, 7, 8, 9, 10), 
-        (5, 6, 7, 8, 9, 10, 11), 
-        (6, 7, 8, 9, 10, 11, 12), 
-        (7, 8, 9, 10, 11, 12, 13), 
-        (8, 9, 10, 11, 12, 13, 14), 
-        (9, 10, 11, 12, 13, 14, 15), 
-        (10, 11, 12, 13, 14, 15, 16);
-
+        (1, 49, 53, 59, 59, 6, 98), 
+        (2, 17, 4, 5, 6, 7, 8), 
+        (3, 22, 42, 27, 7, 8, 76), 
+        (4, 5, 6, 7, 46, 9, 10), 
+        (5, 9, 7, 33, 9, 10, 72), 
+        (6, 7, 32, 34, 10, 11, 27), 
+        (7, 8, 31, 10, 42, 12, 13), 
+        (8, 33, 10, 35, 12, 13, 64), 
+        (9, 10, 36, 12, 37, 14, 15), 
+        (10, 2, 60, 40, 33, 15, 91);
 -- Insert PrevRules
 INSERT INTO PrevRules (prevID, genID, familyID, aspID, careerID, traitID, skillID, miscID)
     VALUES 
@@ -634,11 +636,11 @@ INSERT INTO PrevRules (prevID, genID, familyID, aspID, careerID, traitID, skillI
         (3, 3, 14, 15, 16, 17, 18, 19),
         (4, 4, 15, 16, 17, 18, 19, 20),
         (5, 5, 16, 17, 18, 19, 20, 21),
-        (6, 6, 17, 18, 19, 20, 21, 22),
+        (6, 6, 23, 18, 19, 20, 21, 22),
         (7, 7, 18, 19, 20, 21, 22, 23),
         (8, 8, 19, 20, 21, 22, 23, 25),
         (9, 9, 20, 21, 22, 23, 25, 26),
-        (10, 10, 21, 22, 23, 25, 26, 27);
+        (10, 10, 21, 22, 23, 25, 26, 1);
 
 -- Update used items in Rules
 UPDATE Family SET used = 1 WHERE familyID in (

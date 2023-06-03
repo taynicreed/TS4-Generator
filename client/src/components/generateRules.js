@@ -1,23 +1,19 @@
-// https://react-bootstrap.github.io/components/modal/
-
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-export default function GenerateRules({generateAllRules}) {
+export default function GenerateRules({ generateAllRules }) {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-    const handleGenerate = () => {
-        const gensToUpdate = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        // Call the generateAllRules prop with the gensToUpdate
-        generateAllRules(gensToUpdate);
-        handleClose();
-        window.location.reload(false);
-    };
-
+  // call generateAllRules with the gensToUpdate
+  const handleGenerate = () => {
+      const gensToUpdate = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      generateAllRules(gensToUpdate);
+      handleClose();
+      window.location.reload(false);
+  };
 
   return (
     <>

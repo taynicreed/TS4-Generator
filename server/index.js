@@ -171,6 +171,7 @@ app.put('/overwritePrevRules', (req, res) => {
   });
 });
 
+// generate rules 
 app.put('/generateRules', (req, res) => {
   const genToUpdate = req.body.genToUpdate;
 
@@ -263,8 +264,6 @@ app.get('/prevRules/:genID', (req, res) => {
 app.put('/fillRules', (req, res) => {
   const genToUpdate = req.body.genToUpdate;
   const prevRules = req.body.prevRules;
-  console.log("genToUpdate: ", genToUpdate);
-  console.log("prevRules in /fillRules call: ", prevRules);
 
   const query = `UPDATE Rules SET 
     familyID = ${prevRules.familyID},

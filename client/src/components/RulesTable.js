@@ -1,12 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShuffle, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import Axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import {useState, useEffect} from 'react';
-import Axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShuffle, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
+
+// popover for "undo"
 const popover1 = (
     <Popover id="popover-basic">
       <Popover.Body>
@@ -15,6 +16,7 @@ const popover1 = (
     </Popover>
   );
 
+// popover for "reroll"
 const popover2 = (
     <Popover id="popover-basic">
       <Popover.Body>
@@ -22,11 +24,8 @@ const popover2 = (
       </Popover.Body>
     </Popover>
   );
-
-
   
-function RulesTable({undoRule, rerollRule}) {
-
+function RulesTable({ undoRule, rerollRule }) {
   const [rules, setData] = useState([]);
 
   // receive rules from get request
@@ -37,10 +36,12 @@ function RulesTable({undoRule, rerollRule}) {
     });
   }, []);
 
+  // handle undo
   const handleUndo = (genID) => {
     undoRule(genID);
   };
 
+  // handle reroll
   const handleReroll = (genID) => {
     rerollRule(genID);
     window.location.reload(false);

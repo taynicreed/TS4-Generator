@@ -1,11 +1,11 @@
 import React from 'react';
-import RulesTable from '../components/RulesTable';
-import GenerateRules from '../components/generateRules'
-import { saveAs } from 'file-saver';
 import Axios from 'axios';
 import Button from 'react-bootstrap/esm/Button';
+import { saveAs } from 'file-saver';
+import RulesTable from '../components/RulesTable';
+import GenerateRules from '../components/generateRules'
 
-
+// save rules to txt file
 function SaveFile() {
   Axios.get('/api2/rules')
     .then((response) => {
@@ -32,12 +32,14 @@ function SaveFile() {
 };
 
 function HomePage() {
-    // generate new rule(s)
+
+    // generate new rules for one or all generations
     const generateRules = (gensToUpdate) => {
       console.log('gensToUpdate: ', gensToUpdate);
       markRulesAsUnused(gensToUpdate);
       overwritePrevRules(gensToUpdate);
 
+      // send request for each generation separately to avoid duplicate rules
       gensToUpdate.forEach(gen => {
         console.log('sending to generateRules: ', {genToUpdate: gen});
         Axios.put('/api2/generateRules', { genToUpdate: gen})
@@ -72,23 +74,23 @@ function HomePage() {
         });
     };
 
+    // generate new rules for one generation
     const rerollRule = (genID) => {
       generateRules([genID]);
     };
 
-    // undo rule
+    // undo rules for one generation
     const undoRule = (genID) => {
       Axios.get(`/api2/prevRules/${genID}`)
         .then((response) => {
           const prevRules = response.data[0];
-          console.log(prevRules);
           overwritePrevRules([genID]);
-          fillRulesFromCache(genID, prevRules);
+          fillRulesFromTemp(genID, prevRules);
         });
     };
 
-    // fill Rules from cache
-    const fillRulesFromCache = (genID, prevRules) => {
+    // fill Rules from temp
+    const fillRulesFromTemp = (genID, prevRules) => {
       console.log("Making Axios put req with ", genID, prevRules)
       Axios.put('/api2/fillRules', {genToUpdate: genID, prevRules: prevRules})
         .then(() => {
@@ -97,7 +99,6 @@ function HomePage() {
         });
     };
   
-      
   return (
     <div className="App">
       <div>
@@ -124,10 +125,7 @@ function HomePage() {
           rerollRule={rerollRule}
         />
       </div>
-
     </div>
-
-
   );
 }
 

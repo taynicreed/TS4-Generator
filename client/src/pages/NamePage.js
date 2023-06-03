@@ -1,11 +1,10 @@
-// Code based on https://bobbyhadz.com/blog/react-fetch-data-on-button-click
 import {useState} from 'react';
-
 
 const NamePage = () => {
   const [data, setData] = useState({data: []});
   const [err, setErr] = useState('');
 
+// get random name from microservice
 const handleClick = async () => {
     try {
       const response = await fetch('/api1/name');
