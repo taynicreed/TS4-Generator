@@ -128,7 +128,8 @@ CREATE TABLE PrevRules (
 -- Insert Packs data
 INSERT INTO Packs (packID, packName, packType)
     VALUES 
-        ('bg', 'Base Game', 'Base'),
+        ('bg', 'Base Game', 'Base'),]
+        -- expansion packs
         ('ep1', 'Get To Work', 'Expansion'),
         ('ep2', 'Get Together', 'Expansion'),
         ('ep3', 'City Living', 'Expansion'),
@@ -142,6 +143,7 @@ INSERT INTO Packs (packID, packName, packType)
         ('ep11', 'Cottage Living', 'Expansion'),
         ('ep12', 'High School Years', 'Expansion'),
         ('ep13', 'Growing Together', 'Expansion'),
+        -- game packs
         ('gp1', 'Outdoor Retreat', 'Game'),
         ('gp2', 'Spa Day Pack', 'Game'),
         ('gp3', 'Dine Out Pack', 'Game'),
@@ -154,6 +156,7 @@ INSERT INTO Packs (packID, packName, packType)
         ('gp10', 'Dream Home Decorator', 'Game'),
         ('gp11', 'My Wedding Stories', 'Game'),
         ('gp12', 'Werewolves', 'Game'),
+        -- stuff packs
         ('sp1', 'Cool Kitchen Stuff', 'Stuff'),
         ('sp2', 'Spooky Stuff', 'Stuff'),
         ('sp3', 'Movie Hangout Stuff', 'Stuff'),
@@ -169,6 +172,7 @@ INSERT INTO Packs (packID, packName, packType)
         ('sp13', 'Tiny Living Stuff', 'Stuff'),
         ('sp14', 'Nifty Knitting Stuff', 'Stuff'),
         ('sp15', 'Paranormal Stuff', 'Stuff'),
+        -- kits
         ('k1', 'Bust the Dust Kit', 'Kit'),
         ('k2', 'Little Campers Kit', 'Kit');
 
