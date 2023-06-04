@@ -225,6 +225,8 @@ export default function PackList({ onPackSelection }) {
         </div>
         <h3>
           After applying changes please use the "Generate Rule" button on the home page to get updated challenge rules.
+          <br></br>
+          <br></br>
         </h3>
 
       </>

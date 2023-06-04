@@ -24,7 +24,7 @@ function OptionsPage() {
               </strong>    
             </h1>
           <h3>
-            Select the packs you want to use for your custom legacy challenge.
+            Select the packs you own to get custom rules for your legacy challenge.
           </h3>
           <h3>
             This list only includes packs with gameplay features.
