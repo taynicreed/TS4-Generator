@@ -7,14 +7,14 @@ import sql files (locally, not while logged in to db):
 /usr/local/mysql/bin/mysql -u root -p simsdb < FILENAME.sql         
 
 */
-
+require('dotenv').config()
 const mysql = require('mysql2');
 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "pAMY2Ao!gS5MU7",
-  database: "simsdb"
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB
 });
 
 con.connect(function(err) {
