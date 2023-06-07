@@ -128,7 +128,7 @@ CREATE TABLE PrevRules (
 -- Insert Packs data
 INSERT INTO Packs (packID, packName, packType)
     VALUES 
-        ('bg', 'Base Game', 'Base'),]
+        ('bg', 'Base Game', 'Base'),
         -- expansion packs
         ('ep1', 'Get To Work', 'Expansion'),
         ('ep2', 'Get Together', 'Expansion'),
