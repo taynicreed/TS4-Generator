@@ -4,4 +4,7 @@ TS4 Legacy Challenge Generator is a web application that can be used to generate
 
 The application also includes a name generator, a microservice created by Sophia Lilienthal specifically for this project: https://github.com/sophlil/RandomNameGenerator
 
-Demo video coming very soon!
+Demo video:
+
+https://github.com/taynicreed/TS4-Legacy-Challenge-Generator/assets/81502909/edd8277d-d8e3-4426-9005-08f6692f66d2
+
